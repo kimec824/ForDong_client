@@ -6,50 +6,46 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.w3c.dom.Text;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
 public class FirstFragment extends Fragment {
-
     TextView text;
-    View view;
+    public static FirstFragment newInstance() {
 
-    @Override
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState
-    ) {
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_first, container, false);
-        return view;
+        Bundle args = new Bundle();
+
+        FirstFragment fragment = new FirstFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
-            }
-        });
-
-        text = view.findViewById(R.id.textview_first);
-
-        String url = "http://192.249.18.250:8080/";
-
+    //로그인한 유저의 동아리 정보 서버에서 가져오기
+    //해당 동아리 구성원들 정보 가져오기
+    //서버에서 가져온 정보 파싱해서 띄우기
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view= inflater.inflate(R.layout.fragment_first, container, false);
+        String url = "http://192.249.18.235:8080/contacts";
         //AsyncTask를 통해 HTTPURLConnection 수행.
-
         NetworkTask networkTask = new NetworkTask(url, null);
         networkTask.execute();
+
+        text=(TextView) view.findViewById(R.id.textView);
+        return view;
     }
 
     ///////////////////////////////////////////////////////////////////////////////////
