@@ -204,7 +204,7 @@ public class Fragment1 extends Fragment {
                 }catch (JSONException e) {
                     e.printStackTrace();
                 }
-                //System.out.println("CHECK : " + contactItems.size());
+                System.out.println("CHECK : " + contactItems.size());
                 for(int i = 0; i< contactItems.size() ; i++){
                     Bitmap sampleBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.person);
                     ContactItem ci = contactItems.get(i);
@@ -215,16 +215,16 @@ public class Fragment1 extends Fragment {
             }
             else if(method == "POST"){
                 if(s == "fail"){
-                    Log.e("fail","fail....");
+                    //Log.e("fail","fail....");
                 }
                 else{
-                    Log.e("success",s);
+                    //Log.e("success",s);
                 }
             }
         }
     }
     /////////////////////////////////////////////////////////////////////////////////////
-
+/**
     private String getJsonString()
     {
         String json = "";
@@ -250,4 +250,5 @@ public class Fragment1 extends Fragment {
     public void getContactList(){
         //contacts item에 해당 파일들이 json parsing 해서들어오면되는거.
     }
+ */
 }
