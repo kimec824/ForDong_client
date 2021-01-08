@@ -1,0 +1,22 @@
+{
+  "Contacts": [
+    {
+      "_id": "5ff744e006398a1b9e45416e",
+      "name": "Jackson",
+      "phoneNumber": "010-1123-6548",
+      "email": "example@kaist.ac.kr"
+    },
+    {
+      "_id": "5ff744e006398a1b9e45416f",
+      "name": "Hi",
+      "phoneNumber": "010-4124-6464",
+      "email": "HI@kaist.ac.kr"
+    },
+    {
+      "_id": "5ff744e006398a1b9e454170",
+      "name": "good",
+      "phoneNumber": "010-7771-4546",
+      "email": "phoel@awesome.ac.kr"
+    }
+  ]
+}
