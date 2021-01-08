@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         String pw=new String();
         id=name.getText().toString();
         pw=password.getText().toString();
-        if()
     }
 
     @Override
