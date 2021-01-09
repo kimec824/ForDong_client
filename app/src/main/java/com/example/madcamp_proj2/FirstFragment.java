@@ -44,7 +44,7 @@ public class FirstFragment extends Fragment {
 
         text = view.findViewById(R.id.textview_first);
 
-        String url = "http://192.249.18.250:8080/";
+        String url = "http://192.249.18.250:8080/contacts";
 
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
