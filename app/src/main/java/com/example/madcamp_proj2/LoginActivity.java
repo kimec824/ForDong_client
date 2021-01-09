@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
         Login = findViewById(R.id.buttonLogin);
         SignUp = findViewById(R.id.buttonSignUp);
 
-        String url = "http://192.249.18.250:8080/login/?";
+        String url = "http://192.249.18.232:8080/login/?";
 
         Login.setOnClickListener(new View.OnClickListener() {
             @Override

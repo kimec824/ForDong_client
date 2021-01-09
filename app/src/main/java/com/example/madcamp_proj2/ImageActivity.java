@@ -115,7 +115,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     private void initRetrofitClient() {
         OkHttpClient client = new OkHttpClient.Builder().build();
 
-        apiService = new Retrofit.Builder().baseUrl("http://192.249.18.250:8080/").client(client).build().create(ApiService.class);
+        apiService = new Retrofit.Builder().baseUrl("http://192.249.18.232:8080/").client(client).build().create(ApiService.class);
     }
 
     public Intent getPickImageChooserIntent() {
