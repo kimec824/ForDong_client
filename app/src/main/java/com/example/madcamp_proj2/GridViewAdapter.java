@@ -1,6 +1,7 @@
 package com.example.madcamp_proj2;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -29,13 +32,19 @@ public class GridViewAdapter extends BaseAdapter {
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
         ImageView iconImageView = (ImageView) convertView.findViewById(R.id.image_gridview);
+        TextView tv_name = (TextView) convertView.findViewById(R.id.textView3);
+        TextView tv_path = (TextView) convertView.findViewById(R.id.textView4);
+        TextView tv_context = (TextView) convertView.findViewById(R.id.textView5);
         //TextView strTextView = (TextView) convertView.findViewById(R.id.text_gridview);
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         GridViewItem gridViewItem = gridViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        iconImageView.setImageDrawable(gridViewItem.getIcon());
+        iconImageView.setImageBitmap(gridViewItem.getIcon());
+        tv_name.setText(gridViewItem.getName());
+        tv_path.setText(gridViewItem.getImagePath());
+        tv_context.setText(gridViewItem.getPhotoConText());
         //strTextView.setText(gridViewItemKaist.getStr());
 
         return convertView;
@@ -53,12 +62,13 @@ public class GridViewAdapter extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Drawable icon, String name, String context) {
+    public void addItem(Bitmap icon, String name, String context, String image_path) {
         GridViewItem item = new GridViewItem();
 
         item.setIcon(icon);
         item.setName(name);
-        item.setphotoContext(context);
+        item.setPhotoContext(context);
+        item.setImagePath(image_path);
         //item.setStr(str);
 
         gridViewItemList.add(item);

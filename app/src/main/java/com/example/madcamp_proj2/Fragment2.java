@@ -42,7 +42,9 @@ import static android.Manifest.permission_group.CAMERA;
  */
 public class Fragment2 extends Fragment  {
 
-
+    public static ArrayList<GridViewItem> feedItems = new ArrayList<GridViewItem>();
+    public static GridView gridview;
+    public static GridViewAdapter gridViewAdapter;
     public Fragment2() {
         // Required empty public constructor
     }
@@ -67,10 +69,10 @@ public class Fragment2 extends Fragment  {
         View view = inflater.inflate(R.layout.fragment2, container, false);
 
         //GridView adapter
-        GridViewAdapter adapter = new GridViewAdapter();
-        GridView gridview = (GridView) view.findViewById(R.id.gridView);
-        gridview.setAdapter(adapter);
-        adapter = add_item_to_gridviewadapter(adapter);
+        gridViewAdapter = new GridViewAdapter();
+        gridview = (GridView) view.findViewById(R.id.gridView);
+
+        gridViewAdapter = add_item_to_gridviewadapter(gridViewAdapter);
 
         Button button1 = (Button) view.findViewById(R.id.button);
 

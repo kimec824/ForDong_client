@@ -12,7 +12,11 @@ import org.json.JSONObject;
 import static com.example.madcamp_proj2.Fragment1.contactItems;
 import static com.example.madcamp_proj2.Fragment1.adapter;
 import static com.example.madcamp_proj2.Fragment1.listview;
+import static com.example.madcamp_proj2.Fragment2.gridViewAdapter;
+import static com.example.madcamp_proj2.Fragment2.gridview;
 import static com.example.madcamp_proj2.MainActivity.context_main;
+
+import static com.example.madcamp_proj2.Fragment2.feedItems;
 
 ///////////////////////////////////////////////////////////////////////////////////
 /* Class for Network */
@@ -101,32 +105,29 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
                 //Json parsing
                 JSONObject jsonObject = new JSONObject(s);
 
-                JSONArray contactsArray = jsonObject.getJSONArray("Photos");
+                JSONArray photosArray = jsonObject.getJSONArray("Photos");
 
-
-                for(int i=0; i<contactsArray.length(); i++)
+                for(int i=0; i<photosArray.length(); i++)
                 {
-                    JSONObject movieObject = contactsArray.getJSONObject(i);
-                    ContactItem contact = new ContactItem();
+                    JSONObject photoObject = photosArray.getJSONObject(i);
+                    GridViewItem feed = new GridViewItem();
 
-                    contact.setUser_name(movieObject.getString("name"));
-                    contact.setUser_phNumber(movieObject.getString("file_path"));
-                    contact.setMail(movieObject.getString("email"));
+                    feed.setName(photoObject.getString("name"));
+                    feed.setImagePath(photoObject.getString("file_path"));
+                    feed.setPhotoContext(photoObject.getString("context"));
                     //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
 
-                    contactItems.add(contact);
+                    //현재 url ~~/photo  내가 들어가야하는 곳 ~~/uploads/file_path
+                    String path_url = "http://192.249.18.232:8080/uploads/" + feed.getImagePath();
+                    ImageLoadTask task = new ImageLoadTask(path_url , feed);
+                    task.execute();
+
                 }
             }catch (JSONException e) {
                 e.printStackTrace();
             }
-            System.out.println("CHECK : " + contactItems.size());
-            for(int i = 0; i< contactItems.size() ; i++){
-                Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
-                ContactItem ci = contactItems.get(i);
-                adapter.addItem(sampleBitmap, ci.getUser_name(), ci.getUser_phNumber(),
-                        ci.getMail(), "sample address");
-            }
-            listview.setAdapter(adapter);
+
+
         }
     }
 }

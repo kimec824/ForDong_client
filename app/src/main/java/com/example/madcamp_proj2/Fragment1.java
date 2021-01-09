@@ -110,13 +110,13 @@ public class Fragment1 extends Fragment {
         //String json = getJsonString();
         //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
-
+        /**
         String method = "POST";
         NetworkTask networkPostTask = new NetworkTask(url, null, method, 1);
         networkPostTask.execute();
+        */
 
-
-        method = "GET";
+        String method = "GET";
         NetworkTask networkTask = new NetworkTask(url, null, method, 1);
         networkTask.execute();
 
