@@ -16,7 +16,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class RequestHttpURLConnection {
-    public String request(String _url, ContentValues _params){
+
+    public String request_get(String _url, ContentValues _params){
         try {
             URL url = new URL(_url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -106,3 +107,4 @@ public class RequestHttpURLConnection {
         return result;
     }
 }
+

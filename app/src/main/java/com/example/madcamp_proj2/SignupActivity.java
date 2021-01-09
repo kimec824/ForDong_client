@@ -80,7 +80,7 @@ public class SignupActivity extends AppCompatActivity {
             if(jsonObject != null)
                 result = requestHttpURLConnection.request_post(url, values, jsonObject);
             else
-                result = requestHttpURLConnection.request(url, values); // 해당 URL로 부터 결과물을 얻어온다.
+                result = requestHttpURLConnection.request_get(url, values); // 해당 URL로 부터 결과물을 얻어온다.
 
             return result;
         }
