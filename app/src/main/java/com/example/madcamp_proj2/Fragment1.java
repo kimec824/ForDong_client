@@ -42,6 +42,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static com.example.madcamp_proj2.MainActivity.context_main;
+
 //import static com.example.helloworld.MainActivity.contactList;
 
 /**
@@ -52,7 +54,7 @@ import java.util.ArrayList;
 
 
 
-public class Fragment1 extends Fragment {
+public class Fragment1 extends Fragment implements AsyncTaskCallback{
 
     TextView text;
 
@@ -113,65 +115,51 @@ public class Fragment1 extends Fragment {
         //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
-        String method = "POST";
-        NetworkTask networkPostTask = new NetworkTask(url, null, method, 1);
-        networkPostTask.execute();
-
-
-        method = "GET";
-        NetworkTask networkTask = new NetworkTask(url, null, method, 1);
+        NetworkTask networkTask = new NetworkTask(url, null, null, this);
         networkTask.execute();
 
         adapter.clearItem();
         listview = (ListView) view.findViewById(R.id.listview1);
-
 
         return view ;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+    }
 
-        /**
-        view.findViewById(R.id.button_first).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(FirstFragment.this)
-                        .navigate(R.id.action_FirstFragment_to_SecondFragment);
+    @Override
+    public void method1(String s) {
+        try{
+            //Json parsing
+            JSONObject jsonObject = new JSONObject(s);
+
+            JSONArray contactsArray = jsonObject.getJSONArray("Contacts");
+
+
+            for(int i=0; i<contactsArray.length(); i++)
+            {
+                JSONObject movieObject = contactsArray.getJSONObject(i);
+                ContactItem contact = new ContactItem();
+
+                contact.setUser_name(movieObject.getString("name"));
+                contact.setUser_phNumber(movieObject.getString("phone"));
+                contact.setMail(movieObject.getString("email"));
+                //System.out.println(movieObject.getString("name")+movieObject.getString("phone")+movieObject.getString("email"));
+
+                contactItems.add(contact);
             }
-        });
-
-        text = view.findViewById(R.id.textview_first);
-        */
-
-
-
-    }
-/**
-    private String getJsonString()
-    {
-        String json = "";
-
-        try {
-            InputStream is = getContext().getAssets().open("contacts.json");
-            int fileSize = is.available();
-
-            byte[] buffer = new byte[fileSize];
-            is.read(buffer);
-            is.close();
-
-            json = new String(buffer, "UTF-8");
+        }catch (JSONException e) {
+            e.printStackTrace();
         }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
+        System.out.println("CHECK : " + contactItems.size());
+        adapter.clearItem();
+        for(int i = 0; i< contactItems.size() ; i++){
+            Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
+            ContactItem ci = contactItems.get(i);
+            adapter.addItem(sampleBitmap, ci.getUser_name(), ci.getUser_phNumber(),
+                    ci.getMail(), "sample address");
         }
-
-        return json;
+        listview.setAdapter(adapter);
     }
-    //이걸 db로 받으면 됨.
-    public void getContactList(){
-        //contacts item에 해당 파일들이 json parsing 해서들어오면되는거.
-    }
- */
 }

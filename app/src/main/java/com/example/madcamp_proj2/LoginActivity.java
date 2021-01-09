@@ -27,7 +27,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity implements AsyncTaskCallback{
 
     EditText id;
     EditText password;
@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask2 networkTask = new NetworkTask2(url+"ID="+id.getText().toString()+"&Password="+password.getText().toString(), null);
+                NetworkTask networkTask = new NetworkTask(url+"ID="+id.getText().toString()+"&Password="+password.getText().toString(), null, null, LoginActivity.this);
                 networkTask.execute();
             }
         });
@@ -73,52 +73,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////
-    /* Class for Network */
-    ///////////////////////////////////////////////////////////////////////////////////
-    public class NetworkTask2 extends AsyncTask<Void, Void, String> {
-
-        private String url;
-        private ContentValues values;
-
-        public NetworkTask2(String url, ContentValues values) {
-
-            this.url = url;
-            this.values = values;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            String result; // 요청 결과를 저장할 변수.
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            result = requestHttpURLConnection.request_get(url, values); // 해당 URL로 부터 결과물을 얻어온다.
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //Json parsing
-            JsonParser jsonParser = new JsonParser();
-            JsonObject collections = (JsonObject) jsonParser.parse(s);
-
-            String verified = collections.get("Message").getAsString();
-
-            if(verified.equals("verified")){
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-            else if(verified.equals("fail")){
-                Toast.makeText(getBaseContext(),"Wrong ID/Password", Toast.LENGTH_SHORT).show();
-            }
-
-            //doInBackground()로 부터 리턴된 값이 onPostExecute()의 매개변수로 넘어오므로 s를 출력한다.
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////////////
 
     private void getHashKey(){
         PackageInfo packageInfo = null;
@@ -149,5 +103,21 @@ public class LoginActivity extends AppCompatActivity {
             startActivity(intent);
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void method1(String s) {
+        JsonParser jsonParser = new JsonParser();
+        JsonObject collections = (JsonObject) jsonParser.parse(s);
+
+        String verified = collections.get("Message").getAsString();
+
+        if(verified.equals("verified")){
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
+        else if(verified.equals("fail")){
+            Toast.makeText(getBaseContext(),"Wrong ID/Password", Toast.LENGTH_SHORT).show();
+        }
     }
 }
