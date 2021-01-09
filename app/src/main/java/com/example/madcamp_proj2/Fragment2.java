@@ -106,7 +106,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
         //그럼 이거 부터해서 photo들의 path를 받아보자.
 
 
-        String url = "http://192.249.18.232:8080/photos";
+        String url = "http://"+getString(R.string.ip)+":8080/photos";
         //String json = getJsonString();
         //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
@@ -146,7 +146,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
                 feed.setPhotoContext(photoObject.getString("context"));
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
 
-                String path_url = "http://192.249.18.232:8080/photos/uploads/" + feed.getImagePath();
+                String path_url = "http://"+getString(R.string.ip)+":8080/photos/uploads/" + feed.getImagePath();
                 ImageLoadTask task = new ImageLoadTask(path_url , feed);
                 task.execute();
             }

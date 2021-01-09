@@ -109,7 +109,7 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
 
 
 
-        String url = "http://192.249.18.232:8080/contacts";
+        String url = "http://"+getString(R.string.ip)+":8080/contacts";
 
         //String json = getJsonString();
         //System.out.println(json);
