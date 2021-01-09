@@ -50,6 +50,9 @@ import static com.example.madcamp_proj2.MainActivity.context_main;
  */
 public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
+    public static ArrayList<GridViewItem> feedItems = new ArrayList<GridViewItem>();
+    public static GridView gridview;
+    public static GridViewAdapter gridViewAdapter;
 
     public Fragment2() {
         // Required empty public constructor
@@ -75,10 +78,10 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
         View view = inflater.inflate(R.layout.fragment2, container, false);
 
         //GridView adapter
-        GridViewAdapter adapter = new GridViewAdapter();
-        GridView gridview = (GridView) view.findViewById(R.id.gridView);
-        gridview.setAdapter(adapter);
-        adapter = add_item_to_gridviewadapter(adapter);
+        gridViewAdapter = new GridViewAdapter();
+        gridview = (GridView) view.findViewById(R.id.gridView);
+
+        gridViewAdapter = add_item_to_gridviewadapter(gridViewAdapter);
 
         Button button1 = (Button) view.findViewById(R.id.button);
 
@@ -130,31 +133,25 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
             //Json parsing
             JSONObject jsonObject = new JSONObject(s);
 
-            JSONArray contactsArray = jsonObject.getJSONArray("Photos");
+            JSONArray photosArray = jsonObject.getJSONArray("Photos");
 
 
-            for(int i=0; i<contactsArray.length(); i++)
+            for(int i=0; i<photosArray.length(); i++)
             {
-                JSONObject movieObject = contactsArray.getJSONObject(i);
-                ContactItem contact = new ContactItem();
+                JSONObject photoObject = photosArray.getJSONObject(i);
+                GridViewItem feed = new GridViewItem();
 
-                contact.setUser_name(movieObject.getString("name"));
-                contact.setUser_phNumber(movieObject.getString("file_path"));
-                contact.setMail(movieObject.getString("email"));
+                feed.setName(photoObject.getString("name"));
+                feed.setImagePath(photoObject.getString("file_path"));
+                feed.setPhotoContext(photoObject.getString("context"));
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
 
-                contactItems.add(contact);
+                String path_url = "http://192.249.18.250:8080/uploads/" + feed.getImagePath();
+                ImageLoadTask task = new ImageLoadTask(path_url , feed);
+                task.execute();
             }
         }catch (JSONException e) {
             e.printStackTrace();
         }
-        System.out.println("CHECK : " + contactItems.size());
-        for(int i = 0; i< contactItems.size() ; i++){
-            Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
-            ContactItem ci = contactItems.get(i);
-            adapter.addItem(sampleBitmap, ci.getUser_name(), ci.getUser_phNumber(),
-                    ci.getMail(), "sample address");
-        }
-        listview.setAdapter(adapter);
     }
 }
