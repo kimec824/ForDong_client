@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
         SignUp = findViewById(R.id.buttonSignUp);
 
         String url = "http://"+getString(R.string.ip)+":8080/login/?";
-
+        Log.d("url",url);
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +114,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
 
         if(verified.equals("verified")){
             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+            intent.putExtra("userID", id.getText().toString());
             startActivity(intent);
         }
         else if(verified.equals("fail")){
