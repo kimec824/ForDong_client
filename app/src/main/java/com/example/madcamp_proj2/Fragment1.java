@@ -60,11 +60,11 @@ public class Fragment1 extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    ArrayList<ContactItem> contactItems = new ArrayList<ContactItem>();
+    public static ArrayList<ContactItem> contactItems = new ArrayList<ContactItem>();
 
     //static ArrayList<ContentProviderOperation> newcontact = new ArrayList<>();
-    static ListView listview;
-    public ListViewAdapter adapter = new ListViewAdapter();
+    public static ListView listview;
+    public static ListViewAdapter adapter = new ListViewAdapter();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -106,24 +106,24 @@ public class Fragment1 extends Fragment {
         //listview.setAdapter(adapter) ;
 
 
+
         String url = "http://192.249.18.250:8080/contacts";
+
         //String json = getJsonString();
         //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
         String method = "POST";
-        NetworkTask networkPostTask = new NetworkTask(url, null, method);
+        NetworkTask networkPostTask = new NetworkTask(url, null, method, 1);
         networkPostTask.execute();
 
 
-         method = "GET";
-        NetworkTask networkTask = new NetworkTask(url, null, method);
+        method = "GET";
+        NetworkTask networkTask = new NetworkTask(url, null, method, 1);
         networkTask.execute();
-
 
         adapter.clearItem();
         listview = (ListView) view.findViewById(R.id.listview1);
-
 
 
         return view ;
@@ -147,86 +147,6 @@ public class Fragment1 extends Fragment {
 
 
     }
-
-    ///////////////////////////////////////////////////////////////////////////////////
-    /* Class for Network */
-    ///////////////////////////////////////////////////////////////////////////////////
-    public class NetworkTask extends AsyncTask<Void, Void, String> {
-
-        private String url;
-        private ContentValues values;
-        private String method;
-
-        public NetworkTask(String url, ContentValues values, String method) {
-
-            this.url = url;
-            this.values = values;
-            this.method = method;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            String result; // 요청 결과를 저장할 변수.
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            if(method == "GET"){
-                result = requestHttpURLConnection.request_get(url, values); // 해당 URL로 부터 결과물을 얻어온다.
-            }
-            else{
-                result = requestHttpURLConnection.request_post(url, values, null); // 해당 URL로 POST 보내기.
-            }
-
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //System.out.println(s);
-            if (method == "GET"){
-                try{
-                    //Json parsing
-                    JSONObject jsonObject = new JSONObject(s);
-
-                    JSONArray contactsArray = jsonObject.getJSONArray("Contacts");
-
-
-                    for(int i=0; i<contactsArray.length(); i++)
-                    {
-                        JSONObject movieObject = contactsArray.getJSONObject(i);
-                        ContactItem contact = new ContactItem();
-
-                        contact.setUser_name(movieObject.getString("name"));
-                        contact.setUser_phNumber(movieObject.getString("phone"));
-                        contact.setMail(movieObject.getString("email"));
-                        //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
-
-                        contactItems.add(contact);
-                    }
-                }catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("CHECK : " + contactItems.size());
-                for(int i = 0; i< contactItems.size() ; i++){
-                    Bitmap sampleBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.person);
-                    ContactItem ci = contactItems.get(i);
-                    adapter.addItem(sampleBitmap, ci.getUser_name(), ci.getUser_phNumber(),
-                            ci.getMail(), "sample address");
-                }
-                listview.setAdapter(adapter);
-            }
-            else if(method == "POST"){
-                if(s == "fail"){
-                    //Log.e("fail","fail....");
-                }
-                else{
-                    //Log.e("success",s);
-                }
-            }
-        }
-    }
-    /////////////////////////////////////////////////////////////////////////////////////
 /**
     private String getJsonString()
     {

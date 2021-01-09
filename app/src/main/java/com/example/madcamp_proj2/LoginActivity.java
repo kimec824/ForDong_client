@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask networkTask = new NetworkTask(url+"ID="+id.getText().toString()+"&Password="+password.getText().toString(), null);
+                NetworkTask2 networkTask = new NetworkTask2(url+"ID="+id.getText().toString()+"&Password="+password.getText().toString(), null);
                 networkTask.execute();
             }
         });
@@ -77,12 +77,12 @@ public class LoginActivity extends AppCompatActivity {
     ///////////////////////////////////////////////////////////////////////////////////
     /* Class for Network */
     ///////////////////////////////////////////////////////////////////////////////////
-    public class NetworkTask extends AsyncTask<Void, Void, String> {
+    public class NetworkTask2 extends AsyncTask<Void, Void, String> {
 
         private String url;
         private ContentValues values;
 
-        public NetworkTask(String url, ContentValues values) {
+        public NetworkTask2(String url, ContentValues values) {
 
             this.url = url;
             this.values = values;

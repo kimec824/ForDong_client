@@ -49,7 +49,7 @@ public class SignupActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.d("dfdsfsdf","dfsdfsd");
-                NetworkTask networkTask = new NetworkTask(url_signup+"?ID="+ID.getText().toString()+"&Password="+Password.getText().toString(), null, null);
+                NetworkTask3 networkTask = new NetworkTask3(url_signup+"?ID="+ID.getText().toString()+"&Password="+Password.getText().toString(), null, null);
                 networkTask.execute();
             }
         });
@@ -58,13 +58,13 @@ public class SignupActivity extends AppCompatActivity {
     ///////////////////////////////////////////////////////////////////////////////////
     /* Class for Network */
     ///////////////////////////////////////////////////////////////////////////////////
-    public class NetworkTask extends AsyncTask<Void, Void, String> {
+    public class NetworkTask3 extends AsyncTask<Void, Void, String> {
 
         private String url;
         private ContentValues values;
         private JSONObject jsonObject;
 
-        public NetworkTask(String url, ContentValues values, JSONObject jsonObject) {
+        public NetworkTask3(String url, ContentValues values, JSONObject jsonObject) {
 
             this.url = url;
             this.values = values;
@@ -101,7 +101,7 @@ public class SignupActivity extends AppCompatActivity {
                         jsonObject.accumulate("ID", ID.getText().toString());
                         jsonObject.accumulate("phone", phone.getText().toString());
                         jsonObject.accumulate("Email", email.getText().toString());
-                        NetworkTask networkTask2 = new NetworkTask(url_signup, null, jsonObject);
+                        NetworkTask3 networkTask2 = new NetworkTask3(url_signup, null, jsonObject);
                         networkTask2.execute();
                     }catch (JSONException e){
                         Toast.makeText(SignupActivity.this,"error", Toast.LENGTH_SHORT);
