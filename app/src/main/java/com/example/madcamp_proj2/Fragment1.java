@@ -103,7 +103,7 @@ public class Fragment1 extends Fragment {
         //listview.setAdapter(adapter) ;
 
 
-        String url = "http://192.249.18.232:8080/api/contacts";
+        String url = "http://192.249.18.232:8080/contacts";
         //String json = getJsonString();
         //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
@@ -206,6 +206,7 @@ public class Fragment1 extends Fragment {
                 }
                 //System.out.println("CHECK : " + contactItems.size());
                 for(int i = 0; i< contactItems.size() ; i++){
+                    //TODO: 프로필 사진 띄우기
                     Bitmap sampleBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.person);
                     ContactItem ci = contactItems.get(i);
                     adapter.addItem(sampleBitmap, ci.getUser_name(), ci.getUser_phNumber(),
