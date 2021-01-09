@@ -12,11 +12,13 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -178,8 +180,25 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
             if (requestCode == IMAGE_RESULT) {
                 String filePath = getImageFilePath(data);
+                File file = new File(filePath);
                 if (filePath != null) {
-                    mBitmap = BitmapFactory.decodeFile(filePath);
+                    //Log.v("SDK Version:","sdk_int " +Build.VERSION.SDK_INT);
+
+                     if (Build.VERSION.SDK_INT >= 29){
+                         ImageDecoder.Source source = ImageDecoder.createSource(getContentResolver(),Uri.fromFile(file));
+                         try {
+                             mBitmap = ImageDecoder.decodeBitmap(source);
+                         } catch (IOException e) {
+                             e.printStackTrace();
+                         }
+                     }
+                     else{
+
+                             mBitmap = BitmapFactory.decodeFile(filePath);
+                             //mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
+
+                     }
+
                     imageView.setImageBitmap(mBitmap);
                 }
             }

@@ -59,7 +59,6 @@ public class RequestHttpURLConnection {
             jsonObject.accumulate("name","testhihi!");
             jsonObject.accumulate("phoneNumber","010-6665-8728");
             jsonObject.accumulate("email","sampl@e.com");
-
             json = jsonObject.toString();
 
             OutputStream os = connection.getOutputStream();

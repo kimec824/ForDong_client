@@ -49,6 +49,9 @@ import java.util.ArrayList;
  * Use the {@link Fragment1#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+
+
 public class Fragment1 extends Fragment {
 
     TextView text;
@@ -61,7 +64,7 @@ public class Fragment1 extends Fragment {
 
     //static ArrayList<ContentProviderOperation> newcontact = new ArrayList<>();
     static ListView listview;
-    static ListViewAdapter adapter = new ListViewAdapter();
+    public ListViewAdapter adapter = new ListViewAdapter();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
