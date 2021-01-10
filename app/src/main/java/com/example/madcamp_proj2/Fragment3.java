@@ -1,6 +1,7 @@
 package com.example.madcamp_proj2;
 
 import android.content.ContentValues;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
@@ -12,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import org.json.JSONArray;
@@ -30,7 +33,7 @@ import java.util.ArrayList;
 public class Fragment3 extends Fragment {
 
     private ListView listview;
-    private ListViewAdapter_forBoard adapter;
+    public static ListViewAdapter_forBoard adapter = new ListViewAdapter_forBoard();
     ArrayList<BoardItem> boardItems = new ArrayList<BoardItem>();
 
     // TODO: Rename parameter arguments, choose names that match
@@ -81,14 +84,41 @@ public class Fragment3 extends Fragment {
         boardItems.clear();
         listview = (ListView) view.findViewById(R.id.boardlist);
         listview.setAdapter(adapter);
-        //adapter.clearItem();
-        String url = "http://192.249.18.235:8080/board";
+        adapter.clearItem();
+        String url = "http://192.249.18.250:8080/board";
 
-        String method = "POST";
+        Button seecommentbutton=(Button) view.findViewById(R.id.seecomment);
+        seecommentbutton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent intent=new Intent(getActivity(),Comments.class);
+                startActivity(intent);
+            }
+        });
+
+        //게시글 추가 버튼 클릭 이벤트
+        Button addpostbutton=(Button) view.findViewById(R.id.addpost);
+        addpostbutton.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                //'Choose what to add' list activity 띄워주기
+                //activity에서 선택한 것에 따라서 해당하는 게시글 추가 activity로 넘어간다
+            }
+        });
+
+        //게시글 크게보기 버튼 클릭 이벤트
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //activity에서 선택한 position에 따라서 해당하는 게시글 view activity로 넘어간다
+            }
+        });
+
+
+
+        /*String method = "POST";
         Fragment3.NetworkTask networkPostTask = new Fragment3.NetworkTask(url, null, method);
         networkPostTask.execute();
-
-        method = "GET";
+*/
+        String method = "GET";
         Fragment3.NetworkTask networkTask = new Fragment3.NetworkTask(url, null, method);
         networkTask.execute();
 
@@ -115,12 +145,13 @@ public class Fragment3 extends Fragment {
         protected String doInBackground(Void... params) {
 
             String result; // 요청 결과를 저장할 변수.
+            JSONObject jsonObject=null;
             RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
             if (method == "GET") {
                 result = requestHttpURLConnection.request_get(url, values); // 해당 URL로 부터 결과물을 얻어온다.
-                System.out.println("enter 1");
+                //System.out.println("enter 1");
             } else {
-                result = requestHttpURLConnection.request_post(url, values); // 해당 URL로 POST 보내기.
+               result = requestHttpURLConnection.request_post(url, values, jsonObject); // 해당 URL로 POST 보내기.
             }
 
 
@@ -136,7 +167,7 @@ public class Fragment3 extends Fragment {
                     //Json parsing
                     JSONObject jsonObject = new JSONObject(s);
 
-                    JSONArray boardsArray = jsonObject.getJSONArray("myCollection");
+                    JSONArray boardsArray = jsonObject.getJSONArray("Board");
 
 
                     for (int i = 0; i < boardsArray.length(); i++) {
@@ -144,7 +175,8 @@ public class Fragment3 extends Fragment {
                         BoardItem boardItem = new BoardItem();
 
                         boardItem.settitle(getObject.getString("title"));
-                        boardItem.setcontent(getObject.getString("content"));
+                        //boardItem.setcontent(getObject.getString("content"));
+                        boardItem.setwriter(getObject.getString("writer"));
                         //contact.setMail(movieObject.getString("email"));
                         //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
 
@@ -158,14 +190,15 @@ public class Fragment3 extends Fragment {
                     //TODO: 글 게시자 프로필사진 띄우기
                     Bitmap sampleBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.person);
                     BoardItem bi = boardItems.get(i);
-                    adapter.addItem(sampleBitmap, bi.gettitle(), bi.getcontent());
+                    adapter.addItem(sampleBitmap, bi.gettitle(), bi.getwriter());
                 }
                 listview.setAdapter(adapter);
             } else if (method == "POST") {
                 if (s == "fail") {
                     Log.e("fail", "fail....");
                 } else {
-                    Log.e("success", s);
+                    String err=(s==null)?"successsssssssssss":s;
+                    Log.e("success", err);
                 }
             }
         }

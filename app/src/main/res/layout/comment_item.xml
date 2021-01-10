@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:id="@+id/listview_item"
-    android:layout_height="100dp"
+    android:layout_height="150dp"
     android:layout_margin="5dp"
     android:orientation="vertical">
 
@@ -23,7 +23,7 @@
 
                 android:id="@+id/imageView1_board"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="60dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginRight="5dp"
                 android:layout_marginBottom="10dp"
@@ -32,7 +32,7 @@
             <TextView
                 android:id="@+id/writername"
                 android:layout_width="wrap_content"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
         </LinearLayout>
@@ -43,29 +43,18 @@
             android:layout_marginTop="8dp"
             android:layout_weight="1"
             android:orientation="vertical">
-
             <TextView
-                android:id="@+id/title_board"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:paddingTop="3dp"
+                android:id="@+id/content_board"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:layout_weight="2"
+                android:paddingBottom="10dp"
                 android:text="New Text"
-                android:textColor="#53370D"
-                android:textSize="15dp" />
-
-
+                android:textColor="#6E6557"
+                android:textSize="12dp" />
 
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/seecomment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="댓글 보기"
-        android:layout_gravity="right"/>
 
 </LinearLayout>

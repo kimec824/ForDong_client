@@ -126,7 +126,7 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
                 adapter.addItem(sampleBitmap, ci.getUser_name(), ci.getUser_phNumber(),
                         ci.getMail(), "sample address");
             }
-            listview.setAdapter(adapter);
+           // listview.setAdapter(adapter);
         }
     }
 }
