@@ -54,7 +54,8 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
             return result;
         }
         else{
-            result = requestHttpURLConnection.request_put(url,values,);
+            System.out.println("HI");
+            result = requestHttpURLConnection.request_put(url,values, jsonObject);
             return result;
         }
     }

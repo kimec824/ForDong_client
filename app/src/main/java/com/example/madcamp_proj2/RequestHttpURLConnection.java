@@ -109,13 +109,13 @@ public class RequestHttpURLConnection {
     }
 
 
-    public String request_put(String _url, ContentValues _params){
+    public String request_put(String _url, ContentValues _params, JSONObject jsonobject){
 
         String result = null;
         try {
             URL url = new URL(_url);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            connection.setRequestMethod("POST"); //전송방식
+            connection.setRequestMethod("PUT"); //전송방식
             connection.setDoOutput(true);       //데이터를 쓸 지 설정
             connection.setDoInput(true);        //데이터를 읽어올지 설정
             connection.setDefaultUseCaches(false);

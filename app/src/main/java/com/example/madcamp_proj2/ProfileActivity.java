@@ -32,7 +32,7 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
 
         String url = "http://"+getString(R.string.ip)+":8080/contacts/"+userID.getText().toString();
 
-        NetworkTask networkTask = new NetworkTask(url, null, null, this);
+        NetworkTask networkTask = new NetworkTask(url, null, "GET",null, this);
         networkTask.execute();
     }
 

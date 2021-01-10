@@ -127,16 +127,11 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
                 feed.setPhotoContext(photoObject.getString("context"));
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
 
-<<<<<<< HEAD
                 feedItems.add(feed);
                 //String path_url = "http://192.249.18.232:8080/photos/uploads/" + feed.getImagePath();
                 //ImageLoadTask task = new ImageLoadTask(path_url , feed);
                 //task.execute();
-=======
-                String path_url = "http://"+getString(R.string.ip)+":8080/photos/uploads/" + feed.getImagePath();
-                ImageLoadTask task = new ImageLoadTask(path_url , feed);
-                task.execute();
->>>>>>> client
+
             }
         }catch (JSONException e) {
             e.printStackTrace();

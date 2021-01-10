@@ -26,17 +26,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import static com.example.madcamp_proj2.MainActivity.userID;
 import static com.example.madcamp_proj2.MainActivity.context_main;
-
 import static com.example.madcamp_proj2.Fragment1.adapter;
 import static com.example.madcamp_proj2.Fragment1.listview;
+
+import android.app.Activity;
 
 //import static com.example.helloworld.MainActivity.contactItems;
 //import static com.example.helloworld.Page1Fragment.adapter;
@@ -53,6 +54,8 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
     public ImageView iconImageView;
     public TextView titleTextView, descTextView;
     public ContactItem contactItem;
+    AsyncTaskCallback callback;
+
 
 
     // ListViewAdapter의 생성자
@@ -70,6 +73,7 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position;
         Context context = parent.getContext();
+        callback = this;
 
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
@@ -84,13 +88,11 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
         //View 내 데이터를 설정해주기.
         setViews(position , convertView);
 
-        //button 설정
+        //button 설정 Call(dial로 이동), edit(dialog 띄우기), page(activity전환)
         Button dialbtn = (Button) convertView.findViewById(R.id.dialbtn);
         Button editbtn = (Button) convertView.findViewById(R.id.editbtn);
         Button mypagebtn = (Button) convertView.findViewById(R.id.mypagebtn);
 
-        //Control button Click event. Call(dial로 이동), edit(dialog 띄우기), page(activity전환)
-        setButtonClickEvent(dialbtn, editbtn, mypagebtn);
 
         // item click
         convertView.setOnClickListener(new AdapterView.OnClickListener(){
@@ -115,73 +117,120 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
         editbtn.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View view) {
+                System.out.println( MainActivity.userID );
+
                 ContactItem con = contactItemList.get(position);
 
-                final LinearLayout linear = (LinearLayout) View.inflate(context, R.layout.contactdialog, null);
-                AlertDialog.Builder adb = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+                //주인하고 맞는지 체크
+                if(con.getUser_name() == userID){
+                    final LinearLayout linear = (LinearLayout) View.inflate(context, R.layout.contactdialog, null);
+                    AlertDialog.Builder adb = new AlertDialog.Builder(context, R.style.MyDialogTheme);
 
-                EditText edt = linear.findViewById(R.id.et1);
-                adb.setView(linear);
-                edt.setText(con.getUser_name());
+                    EditText edt = linear.findViewById(R.id.et1);
+                    adb.setView(linear);
+                    edt.setText(con.getUser_name());
 
-                EditText edt2 = linear.findViewById(R.id.et2);
-                adb.setView(linear);
-                edt2.setText(con.getUser_phNumber());
+                    EditText edt2 = linear.findViewById(R.id.et2);
+                    adb.setView(linear);
+                    edt2.setText(con.getUser_phNumber());
 
-                EditText edt3 = linear.findViewById(R.id.et3);
-                adb.setView(linear);
-                edt3.setText(con.getMail());
+                    EditText edt3 = linear.findViewById(R.id.et3);
+                    adb.setView(linear);
+                    edt3.setText(con.getMail());
 
-                EditText edt4 = linear.findViewById(R.id.et4);
-                adb.setView(linear);
-                edt4.setText(con.getAddress());
+                    EditText edt4 = linear.findViewById(R.id.et4);
+                    adb.setView(linear);
+                    edt4.setText(con.getAddress());
 
-                //ok는 수정했다는것.
-                adb.setTitle("Edit Contact")
-                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                    //ok는 수정했다는것.
+                    adb.setTitle("Edit Contact")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
 
-                                String name = edt.getText().toString();
-                                String number = edt2.getText().toString();
-                                String mail = edt3.getText().toString();
-                                String add = edt4.getText().toString();
+                                    String name = edt.getText().toString();
+                                    String number = edt2.getText().toString();
+                                    String mail = edt3.getText().toString();
+                                    String add = edt4.getText().toString();
 
-                                ContactItem temp = new ContactItem();
-                                Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
-                                temp.setUser_profile(sampleBitmap);
-                                temp.setUser_name(name);
-                                temp.setUser_phNumber(number);
-                                temp.setMail(mail);
-                                temp.setAddress(add);
-                                contactItemList.set(position, temp);
 
-                                adapter.notifyDataSetChanged();
-                                listview.setAdapter(adapter);
 
-                                //
-                                //DATABASE에 넘겨주는 작업이 필요함.
-                                // put
-                                NetworkTask networkTask = new NetworkTask(url, null, null, this);
-                                networkTask.execute();
-                            }
-                        })
-                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
+                                    //
+                                    //DATABASE에 넘겨주는 작업이 필요함.
+                                    // put
+                                    String url = "http://"+context.getString(R.string.ip)+":8080/contacts";
+                                    String method = "PUT";
 
-                            }
-                        });
+                                    //build jsonObject
+                                    JSONObject jsonObject = new JSONObject();
+                                    try {
+                                        jsonObject.accumulate("name",con.getUser_name());
+                                        jsonObject.accumulate("phone",con.getUser_phNumber());
+                                        jsonObject.accumulate("email",con.getMail());
+                                        jsonObject.accumulate("changename",name);
+                                        jsonObject.accumulate("changephone",number);
+                                        jsonObject.accumulate("changeemail",mail);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
 
-                AlertDialog finalDialog = adb.create();
-                finalDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                    @Override
-                    public void onShow(DialogInterface arg0) {
-                        finalDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#6E6557"));
-                        finalDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.parseColor("#6E6557"));
-                    }
-                });
-                finalDialog.show();
+                                    ContactItem temp = new ContactItem();
+                                    Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
+                                    temp.setUser_profile(sampleBitmap);
+                                    temp.setUser_name(name);
+                                    temp.setUser_phNumber(number);
+                                    temp.setMail(mail);
+                                    temp.setAddress(add);
+                                    contactItemList.set(position, temp);
+
+                                    adapter.notifyDataSetChanged();
+                                    listview.setAdapter(adapter);
+
+                                    System.out.println("checkpoint");
+                                    NetworkTask networkTask = new NetworkTask(url, null, method, jsonObject, callback  );
+                                    networkTask.execute();
+
+
+
+                                }
+                            })
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                }
+                            });
+
+                    AlertDialog finalDialog = adb.create();
+                    finalDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface arg0) {
+                            finalDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#6E6557"));
+                            finalDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.parseColor("#6E6557"));
+                        }
+                    });
+                    finalDialog.show();
+                }
+                else{
+                    AlertDialog.Builder ad = new AlertDialog.Builder(context);
+                    ad.setMessage("Permission denied.");
+                    ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    ad.show();
+
+*/
+                    //Toast.makeText( MainActivity.context_main ,"permission denied.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -254,6 +303,6 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
 
     @Override
     public void method3(String s) {
-
+        System.out.println(s);
     }
 }

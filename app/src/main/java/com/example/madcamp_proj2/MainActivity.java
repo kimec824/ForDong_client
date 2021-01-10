@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     public static Context context_main;
     FloatingActionButton profileButton;
-    private String userID;
+    public static String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
