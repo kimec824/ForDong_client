@@ -30,7 +30,6 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
     private AsyncTaskCallback mCallback;
 
     public NetworkTask(String url, ContentValues values, JSONObject jsonObject, AsyncTaskCallback mCallback) {
-
         this.url = url;
         this.values = values;
         this.jsonObject = jsonObject;

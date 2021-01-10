@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import static com.example.madcamp_proj2.MainActivity.userID;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -47,27 +47,28 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
                 //newpost를 json object로 바꿈
                 JSONObject jsonObject = new JSONObject();
                 try {
-                    jsonObject.accumulate("title", newpost.gettitle());
+                    jsonObject.accumulate("title", title_input.getText().toString());
+                    System.out.println(newpost.gettitle());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
-                    jsonObject.accumulate("content",newpost.getcontent());
+                    jsonObject.accumulate("content",content_input.getText().toString());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
-                    jsonObject.accumulate("writer",newpost.getwriter());
+                    jsonObject.accumulate("writer",userID);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
-                    jsonObject.accumulate("type",newpost.gettype());
+                    jsonObject.accumulate("type",1);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {
-                    jsonObject.accumulate("time",newpost.gettime());
+                    jsonObject.accumulate("time",getTime);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -76,8 +77,16 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
         });
     }
     public void gotoMain (JSONObject jsonObject){
-        NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null,jsonObject,this);
+
+        NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null, jsonObject,this);
+        networkTask.execute();
+
         Intent intent=new Intent(getApplicationContext(), MainActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void method2(String s) {
+
     }
 }

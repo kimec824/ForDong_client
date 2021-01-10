@@ -92,7 +92,7 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
         listview = (ListView) view.findViewById(R.id.boardlist);
         listview.setAdapter(adapter);
         adapter.clearItem();
-        String url = "http://192.249.18.250:8080/board";
+        String url="http://"+getString(R.string.ip)+":8080/board";
 
         //게시글 추가 버튼 클릭 이벤트
         Button addpostbutton = (Button) view.findViewById(R.id.addpost);
@@ -134,7 +134,10 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                Intent intent=new Intent(getActivity(), Viewpost_announce.class);
+                String chosenTitle=boardItems.get(position).gettitle();
+                intent.putExtra("title", chosenTitle);
+                getActivity().startActivity(intent);
                 //activity에서 선택한 position에 따라서 해당하는 게시글 view activity로 넘어간다
             }
         });
