@@ -23,14 +23,6 @@
             android:layout_height="wrap_content" />
 
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
-
     </RelativeLayout>
 
 
@@ -50,6 +42,15 @@
         android:layout_gravity="bottom|center_horizontal"
         android:layout_margin="16dp"
         app:srcCompat="@android:drawable/ic_menu_upload" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        app:layout_anchor="@+id/content_main"
+        app:layout_anchorGravity="center" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
