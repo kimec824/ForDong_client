@@ -228,7 +228,6 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
                     });
                     ad.show();
 
-*/
                     //Toast.makeText( MainActivity.context_main ,"permission denied.", Toast.LENGTH_SHORT).show();
                 }
             }
