@@ -1,12 +1,27 @@
 package com.example.madcamp_proj2;
 
+import android.app.AlertDialog;
+import android.content.ContentProviderOperation;
+import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.OperationApplicationException;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.RemoteException;
+import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -37,7 +52,7 @@ public class ListViewAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         final int pos = position;
         final Context context = parent.getContext();
-
+        Log.d("view","view");
         // "listview_item" Layout을 inflate하여 convertView 참조 획득.
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -45,9 +60,9 @@ public class ListViewAdapter extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.imageView1_board) ;
-        TextView titleTextView = (TextView) convertView.findViewById(R.id.title_board) ;
-        TextView descTextView = (TextView) convertView.findViewById(R.id.content_board) ;
+        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.imageView1) ;
+        TextView titleTextView = (TextView) convertView.findViewById(R.id.textView1) ;
+        TextView descTextView = (TextView) convertView.findViewById(R.id.textView2) ;
 
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem listViewItem = listViewItemList.get(position);
@@ -86,7 +101,7 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     public void clearItem() {
-        listViewItemList = new ArrayList<ListViewItem>();
+        listViewItemList.clear();
     }
 
 }

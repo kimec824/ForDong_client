@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.madcamp_proj2">
+
     <uses-feature
-        android:name = "android.hardware.camera"
-        android:required="false"/>
+        android:name="android.hardware.camera"
+        android:required="false" />
     <uses-feature
-        android:name = "android.hardware.camera.autofocus"
-        android:required="false"/>
+        android:name="android.hardware.camera.autofocus"
+        android:required="false" />
     <uses-feature
-        android:name ="android.hardware.camera.flash"
-        android:required="false"/>
+        android:name="android.hardware.camera.flash"
+        android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -27,7 +27,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Madcamp_proj2"
         android:usesCleartextTraffic="true">
-        <activity android:name=".SignupActivity"></activity>
+        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".SignupActivity" />
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -43,14 +44,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
-            android:name = "androidx.core.content.FileProvider"
+            android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
 
         <activity
@@ -64,7 +66,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".ImageActivity" />
-
     </application>
 
 </manifest>
