@@ -26,15 +26,18 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
 
     private String url;
     private ContentValues values;
+    private String method;
     private JSONObject jsonObject;
     private AsyncTaskCallback mCallback;
 
-    public NetworkTask(String url, ContentValues values, JSONObject jsonObject, AsyncTaskCallback mCallback) {
+    public NetworkTask(String url, ContentValues values, String method , JSONObject jsonObject, AsyncTaskCallback mCallback) {
 
         this.url = url;
         this.values = values;
+        this.method = method;
         this.jsonObject = jsonObject;
         this.mCallback= mCallback;
+
     }
 
     @Override
@@ -46,8 +49,12 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
             result = requestHttpURLConnection.request_get(url, values); // 해당 URL로 부터 결과물을 얻어온다.
             return result;
         }
-        else{
+        else if(method == "POST"){
             result = requestHttpURLConnection.request_post(url, values, null); // 해당 URL로 POST 보내기.
+            return result;
+        }
+        else{
+            result = requestHttpURLConnection.request_put(url,values,);
             return result;
         }
     }
@@ -58,8 +65,10 @@ public class NetworkTask extends AsyncTask<Void, Void, String> {
         //System.out.println(s);
         if(jsonObject == null)
             mCallback.method1(s);
-        else
+        else if(method == "POST")
             mCallback.method2(s);
+        else
+            mCallback.method3(s);
     }
 }
 /////////////////////////////////////////////////////////////////////////////////////

@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.OperationApplicationException;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.RemoteException;
@@ -26,7 +27,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+
+import static com.example.madcamp_proj2.MainActivity.context_main;
+
+import static com.example.madcamp_proj2.Fragment1.adapter;
+import static com.example.madcamp_proj2.Fragment1.listview;
 
 //import static com.example.helloworld.MainActivity.contactItems;
 //import static com.example.helloworld.Page1Fragment.adapter;
@@ -35,7 +45,7 @@ import java.util.ArrayList;
 
 //import static com.example.helloworld.MainActivity.contactList;
 
-public class ListViewAdapter extends BaseAdapter{
+public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
     public ArrayList<ContactItem> contactItemList = new ArrayList<ContactItem>() ;
 
@@ -104,8 +114,74 @@ public class ListViewAdapter extends BaseAdapter{
         //edit button click
         editbtn.setOnClickListener(new Button.OnClickListener(){
             @Override
-            public void onClick(View view){
-                Log.d("edit","click");
+            public void onClick(View view) {
+                ContactItem con = contactItemList.get(position);
+
+                final LinearLayout linear = (LinearLayout) View.inflate(context, R.layout.contactdialog, null);
+                AlertDialog.Builder adb = new AlertDialog.Builder(context, R.style.MyDialogTheme);
+
+                EditText edt = linear.findViewById(R.id.et1);
+                adb.setView(linear);
+                edt.setText(con.getUser_name());
+
+                EditText edt2 = linear.findViewById(R.id.et2);
+                adb.setView(linear);
+                edt2.setText(con.getUser_phNumber());
+
+                EditText edt3 = linear.findViewById(R.id.et3);
+                adb.setView(linear);
+                edt3.setText(con.getMail());
+
+                EditText edt4 = linear.findViewById(R.id.et4);
+                adb.setView(linear);
+                edt4.setText(con.getAddress());
+
+                //ok는 수정했다는것.
+                adb.setTitle("Edit Contact")
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                String name = edt.getText().toString();
+                                String number = edt2.getText().toString();
+                                String mail = edt3.getText().toString();
+                                String add = edt4.getText().toString();
+
+                                ContactItem temp = new ContactItem();
+                                Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
+                                temp.setUser_profile(sampleBitmap);
+                                temp.setUser_name(name);
+                                temp.setUser_phNumber(number);
+                                temp.setMail(mail);
+                                temp.setAddress(add);
+                                contactItemList.set(position, temp);
+
+                                adapter.notifyDataSetChanged();
+                                listview.setAdapter(adapter);
+
+                                //
+                                //DATABASE에 넘겨주는 작업이 필요함.
+                                // put
+                                NetworkTask networkTask = new NetworkTask(url, null, null, this);
+                                networkTask.execute();
+                            }
+                        })
+                        .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        });
+
+                AlertDialog finalDialog = adb.create();
+                finalDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        finalDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#6E6557"));
+                        finalDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.parseColor("#6E6557"));
+                    }
+                });
+                finalDialog.show();
             }
         });
 
@@ -176,8 +252,8 @@ public class ListViewAdapter extends BaseAdapter{
             layout.setVisibility(View.VISIBLE);
     }
 
-    public void setButtonClickEvent(Button dialbtn ,Button editbtn, Button mypagebtn){
-
+    @Override
+    public void method3(String s) {
 
     }
 }

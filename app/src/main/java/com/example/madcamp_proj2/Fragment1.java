@@ -103,10 +103,10 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
 
         //get contacts.
         String url = "http://192.249.18.232:8080/contacts";
-
+        String method = "GET";
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
-        NetworkTask networkTask = new NetworkTask(url, null, null, this);
+        NetworkTask networkTask = new NetworkTask(url, null, method ,null, this);
         networkTask.execute();
 
         adapter.clearItem();

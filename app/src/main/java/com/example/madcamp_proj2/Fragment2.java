@@ -87,11 +87,12 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
 
         String url = "http://192.249.18.232:8080/photos";
+        String method = "POST";
         //String json = getJsonString();
         //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
-        NetworkTask networkTask = new NetworkTask(url, null, null, this);
+        NetworkTask networkTask = new NetworkTask(url, null, method ,null, this );
         networkTask.execute();
 
 
