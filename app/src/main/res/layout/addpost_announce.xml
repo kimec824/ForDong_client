@@ -16,38 +16,9 @@
         android:layout_gravity="right"
         android:text="추가" />
 
-       <!-- <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:weightSum="3"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/checkBox1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="공지" />
-
-            <CheckBox
-                android:id="@+id/checkBox2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="선택1(미정)" />
-
-            <CheckBox
-                android:id="@+id/checkBox3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="선택2(미정)" />
-
-        </LinearLayout>-->
 
     <EditText
-        android:id="@+id/Add_title"
+        android:id="@+id/Addtitle_a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -56,7 +27,7 @@
         android:hint="글 제목" />
 
     <EditText
-        android:id="@+id/Add_content"
+        android:id="@+id/Addcontent_a"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"

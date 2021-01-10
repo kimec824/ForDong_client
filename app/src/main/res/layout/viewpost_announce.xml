@@ -12,31 +12,22 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:weightSum="3"
+        android:layout_weight="2"
+        android:weightSum="2"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/date_a"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="작성 날짜"
-            android:inputType="date" />
-
-        <EditText
             android:id="@+id/time_a"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="작성 시간"
+            android:hint="작성 일시"
             android:inputType="time" />
 
         <TextView
             android:id="@+id/writer_a"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="작성자"
@@ -45,21 +36,31 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/Addtitle_a"
+        android:id="@+id/viewtitle_a"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:ems="10"
         android:inputType="text"
         android:hint="글 제목" />
 
     <TextView
-        android:id="@+id/Addcontent_a"
+        android:id="@+id/viewcontent_a"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="17"
+        android:layout_weight="6"
         android:ems="10"
         android:hint="글 내용"
         android:gravity="start|top"
         android:inputType="textMultiLine" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10"/>
+
+    <Button
+        android:id="@+id/addcomment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="댓글쓰기" />
 </LinearLayout>

@@ -11,8 +11,12 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="facebook_app_id">461549658581999</string>
     <string name="fb_login_protocol_scheme">fb461549658581999</string>
-
-    <string name="ip">192.249.18.250</string>
+    <string-array name = "LAN">
+        <item>"공지"</item>
+        <item>"투표"</item>
+        <item>"item3"</item>
+    </string-array>
+    <string name="ip">192.249.18.235</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

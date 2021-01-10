@@ -1,12 +1,15 @@
 package com.example.madcamp_proj2;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -16,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,12 +29,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import static com.example.madcamp_proj2.MainActivity.context_main;
+import static com.facebook.FacebookSdk.getApplicationContext;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Fragment3#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Fragment3 extends Fragment {
+public class Fragment3 extends Fragment implements AsyncTaskCallback {
 
     private ListView listview;
     public static ListViewAdapter_forBoard adapter = new ListViewAdapter_forBoard();
@@ -87,149 +94,96 @@ public class Fragment3 extends Fragment {
         adapter.clearItem();
         String url = "http://192.249.18.250:8080/board";
 
-        Button seecommentbutton=(Button) view.findViewById(R.id.seecomment);
-        seecommentbutton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent=new Intent(getActivity(),Comments.class);
-                startActivity(intent);
-            }
-        });
-
         //게시글 추가 버튼 클릭 이벤트
-        Button addpostbutton=(Button) view.findViewById(R.id.addpost);
-        addpostbutton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                //'Choose what to add' list activity 띄워주기
-                //activity에서 선택한 것에 따라서 해당하는 게시글 추가 activity로 넘어간다
+        Button addpostbutton = (Button) view.findViewById(R.id.addpost);
+        addpostbutton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //글의 유형 선택하는 창 띄워주기
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+                builder.setTitle("어떤 글을 작성하시겠습니까?");
+
+                builder.setItems(R.array.LAN, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos) {
+                        String[] items = getResources().getStringArray(R.array.LAN);
+                        //Toast.makeText(getApplicationContext(),items[pos],Toast.LENGTH_LONG).show();
+                        if (pos == 0) {
+                            Intent intent = new Intent(getActivity(), Addpost_announce.class);
+                            startActivity(intent);
+                        } else if (pos == 1) {
+                            Intent intent = new Intent(getActivity(), Addpost_vote.class);
+                            startActivity(intent);
+                        } else if (pos == 2) {
+                            Intent intent = new Intent(getActivity(), Addpost_announce.class);
+                            startActivity(intent);
+
+                        }
+
+                    }
+                });
+
+                AlertDialog alertDialog = builder.create();
+                alertDialog.show();
+                //activity에서 선택한 것에 따라서 해당하는 게시글 추가 activity로 넘어간다.
+                //게시글 추가할 때 type도 정해줘야한다!
             }
         });
 
-        //게시글 크게보기 버튼 클릭 이벤트
+        //게시글 전체보기 버튼 클릭 이벤트
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 //activity에서 선택한 position에 따라서 해당하는 게시글 view activity로 넘어간다
             }
         });
 
 
-
-        /*String method = "POST";
+        NetworkTask networkTask = new NetworkTask(url, null, null, this);
+        networkTask.execute();
+        /*
+        String method = "POST";
         Fragment3.NetworkTask networkPostTask = new Fragment3.NetworkTask(url, null, method);
         networkPostTask.execute();
-*/
-        String method = "GET";
+
+        method = "GET";
         Fragment3.NetworkTask networkTask = new Fragment3.NetworkTask(url, null, method);
         networkTask.execute();
-
+*/
         return view;
     }
 
-    ///////////////////////////////////////////////////////////////////////////////////
-    /* Class for Network */
-    ///////////////////////////////////////////////////////////////////////////////////
-    public class NetworkTask extends AsyncTask<Void, Void, String> {
-
-        private String url;
-        private ContentValues values;
-        private String method;
-
-        public NetworkTask(String url, ContentValues values, String method) {
-
-            this.url = url;
-            this.values = values;
-            this.method = method;
-        }
-
-        @Override
-        protected String doInBackground(Void... params) {
-
-            String result; // 요청 결과를 저장할 변수.
-            JSONObject jsonObject=null;
-            RequestHttpURLConnection requestHttpURLConnection = new RequestHttpURLConnection();
-            if (method == "GET") {
-                result = requestHttpURLConnection.request_get(url, values); // 해당 URL로 부터 결과물을 얻어온다.
-                //System.out.println("enter 1");
-            } else {
-               result = requestHttpURLConnection.request_post(url, values, jsonObject); // 해당 URL로 POST 보내기.
-            }
-
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            //System.out.println(s);
-            if (method == "GET") {
-                try {
-                    //Json parsing
-                    JSONObject jsonObject = new JSONObject(s);
-
-                    JSONArray boardsArray = jsonObject.getJSONArray("Board");
-
-
-                    for (int i = 0; i < boardsArray.length(); i++) {
-                        JSONObject getObject = boardsArray.getJSONObject(i);
-                        BoardItem boardItem = new BoardItem();
-
-                        boardItem.settitle(getObject.getString("title"));
-                        //boardItem.setcontent(getObject.getString("content"));
-                        boardItem.setwriter(getObject.getString("writer"));
-                        //contact.setMail(movieObject.getString("email"));
-                        //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
-
-                        boardItems.add(boardItem);
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                //System.out.println("CHECK : " + contactItems.size());
-                for (int i = 0; i < boardItems.size(); i++) {
-                    //TODO: 글 게시자 프로필사진 띄우기
-                    Bitmap sampleBitmap = BitmapFactory.decodeResource(getContext().getResources(), R.drawable.person);
-                    BoardItem bi = boardItems.get(i);
-                    adapter.addItem(sampleBitmap, bi.gettitle(), bi.getwriter());
-                }
-                listview.setAdapter(adapter);
-            } else if (method == "POST") {
-                if (s == "fail") {
-                    Log.e("fail", "fail....");
-                } else {
-                    String err=(s==null)?"successsssssssssss":s;
-                    Log.e("success", err);
-                }
-            }
-        }
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
-}
-    /////////////////////////////////////////////////////////////////////////////////////
-/*
-    private String getJsonString()
-    {
-        String json = "";
 
+    @Override
+    public void method1(String s) {
         try {
-            InputStream is = getContext().getAssets().open("contacts.json");
-            int fileSize = is.available();
+            //Json parsing
+            JSONObject jsonObject = new JSONObject(s);
 
-            byte[] buffer = new byte[fileSize];
-            is.read(buffer);
-            is.close();
+            JSONArray boardArray = jsonObject.getJSONArray("Board");
 
-            json = new String(buffer, "UTF-8");
+            for (int i = 0; i < boardArray.length(); i++) {
+                JSONObject getObject = boardArray.getJSONObject(i);
+                BoardItem post = new BoardItem();
+
+                post.settitle(getObject.getString("title"));
+                post.setwriter(getObject.getString("writer"));
+
+                boardItems.add(post);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        catch (IOException ex)
-        {
-            ex.printStackTrace();
+        adapter.clearItem();
+        for (int i = 0; i < boardItems.size(); i++) {
+            Bitmap sampleBitmap = BitmapFactory.decodeResource(context_main.getResources(), R.drawable.person);
+            BoardItem bi = boardItems.get(i);
+            adapter.addItem(sampleBitmap, bi.gettitle(), bi.getwriter());
         }
-
-        return json;
-    }
-    //이걸 db로 받으면 됨.
-    public void getContactList(){
-        //contacts item에 해당 파일들이 json parsing 해서들어오면되는거.
+        listview.setAdapter(adapter);
     }
 }
-*/

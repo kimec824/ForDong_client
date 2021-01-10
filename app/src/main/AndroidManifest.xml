@@ -28,6 +28,10 @@
         android:theme="@style/Theme.Madcamp_proj2"
         android:usesCleartextTraffic="true">
         <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".Addpost_vote"></activity>
+        <activity android:name=".Addpost_announce"></activity>
+        <activity android:name=".Viewpost_announce"></activity>
+        <activity android:name=".Viewpost_vote"></activity>
         <activity android:name=".SignupActivity" />
 
         <meta-data

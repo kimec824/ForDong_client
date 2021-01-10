@@ -13,30 +13,21 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:weightSum="3"
+        android:weightSum="2"
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/date_v"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="작성 날짜"
-            android:inputType="date" />
-
-        <EditText
             android:id="@+id/time_v"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:hint="작성 시간"
+            android:hint="작성 일시"
             android:inputType="time" />
 
         <TextView
             android:id="@+id/writer_v"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="작성자"
@@ -45,7 +36,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/Addtitle_v"
+        android:id="@+id/viewtitle_v"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
@@ -54,7 +45,7 @@
         android:hint="글 제목" />
 
     <TextView
-        android:id="@+id/Addcontent_v"
+        android:id="@+id/viewcontent_v"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
@@ -71,20 +62,22 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
+            android:layout_gravity="center"
             android:weightSum="2">
 
             <TextView
                 android:id="@+id/vote1.1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_gravity="center_vertical"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/vote1.2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
@@ -92,20 +85,20 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
             android:weightSum="2">
 
             <TextView
                 android:id="@+id/vote2.1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/vote2.2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
@@ -119,14 +112,14 @@
 
             <TextView
                 android:id="@+id/vote3.1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="TextView" />
 
             <TextView
                 android:id="@+id/vote3.2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="TextView" />
@@ -140,14 +133,14 @@
 
                 <TextView
                     android:id="@+id/vote4.1"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:text="TextView"
                     android:layout_weight="1"/>
 
                 <TextView
                     android:id="@+id/vote4.2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="TextView"
                     android:layout_weight="1" />
@@ -161,14 +154,14 @@
 
             <TextView
                 android:id="@+id/vote5.1"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:text="TextView"
                 android:layout_weight="1"/>
 
             <TextView
                 android:id="@+id/vote5.2"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="TextView"
                 android:layout_weight="1" />
