@@ -23,7 +23,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ArrayList<FeedItem> feedItems = new ArrayList<FeedItem>();
 
 
-
     public RecyclerViewAdapter(){
     }
 
@@ -36,7 +35,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         View view = inflater.inflate(R.layout.recyclerview_item, parent, false) ;
         RecyclerViewHolder vh = new RecyclerViewAdapter.RecyclerViewHolder(view) ;
-
 
         return vh ;
     }
@@ -74,19 +72,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     // 아이템 뷰를 저장하는 뷰홀더 클래스.
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
+        TextView tv_writer_name;
         TextView tv_name;
         TextView tv_path;
         TextView tv_context;
+        public ImageView writerImage = null;
         public ImageView iconImageView = null;
+
 
         public RecyclerViewHolder(View itemView) {
             super(itemView) ;
 
             // 뷰 객체에 대한 참조. (hold strong reference)
+            writerImage = (ImageView) itemView.findViewById(R.id.writer_image);
+            tv_writer_name =(TextView) itemView.findViewById(R.id.writer_name);
             iconImageView = (ImageView) itemView.findViewById(R.id.imageview);
-            tv_name = (TextView) itemView.findViewById(R.id.textView3);
-            tv_path = (TextView) itemView.findViewById(R.id.textView4);
-            tv_context = (TextView) itemView.findViewById(R.id.textView5);
+            tv_name = (TextView) itemView.findViewById(R.id.writer_name2);
+            //tv_path = (TextView) itemView.findViewById(R.id.textView4);
+            tv_context = (TextView) itemView.findViewById(R.id.context);
 
         }
 
@@ -95,8 +98,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             String url = "http://192.249.18.232:8080/photos/uploads/" ;
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
+            Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.writerImage);
+            tv_writer_name.setText(feed.getName());
             tv_name.setText(feed.getName());
-            tv_path.setText(feed.getImagePath());
+            //tv_path.setText(feed.getImagePath());
             tv_context.setText(feed.getPhotoConText());
         }
     }

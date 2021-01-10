@@ -100,19 +100,10 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment1, null) ;
         contactItems.clear();
-        //연락처 가져오기.-> db로 연결
-        //getContactList();
 
-        //ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, LIST_MENU) ;
-        //ListView listview = (ListView) view.findViewById(R.id.listview1);
-        //listview.setAdapter(adapter) ;
-
-
-
+        //get contacts.
         String url = "http://192.249.18.232:8080/contacts";
 
-        //String json = getJsonString();
-        //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
         NetworkTask networkTask = new NetworkTask(url, null, null, this);
@@ -157,8 +148,9 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
         for(int i = 0; i< contactItems.size() ; i++){
             Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
             ContactItem ci = contactItems.get(i);
-            adapter.addItem(sampleBitmap, ci.getUser_name(), ci.getUser_phNumber(),
-                    ci.getMail(), "sample address");
+            ci.setUser_profile(sampleBitmap);
+            ci.setAddress("sample address");
+            adapter.addItem(ci);
         }
         listview.setAdapter(adapter);
     }
