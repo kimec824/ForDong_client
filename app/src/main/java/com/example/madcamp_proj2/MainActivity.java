@@ -1,6 +1,7 @@
 package com.example.madcamp_proj2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     public static Context context_main;
+    FloatingActionButton profileButton;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
         id=name.getText().toString();
         pw=password.getText().toString();
         */
-
+        Intent intent = getIntent();
+        userID = intent.getStringExtra("userID");
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         tabLayout.setSelectedTabIndicatorHeight(0);
+        profileButton = findViewById(R.id.profileButton);
 
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(viewPagerAdapter);
@@ -100,6 +106,15 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
+
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                intent.putExtra("userID", userID);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

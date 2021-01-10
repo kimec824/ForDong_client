@@ -101,9 +101,12 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
         View view = inflater.inflate(R.layout.fragment1, null) ;
         contactItems.clear();
 
-        //get contacts.
-        String url = "http://192.249.18.232:8080/contacts";
+
+        String url = "http://"+getString(R.string.ip)+":8080/contacts";
         String method = "GET";
+        //String json = getJsonString();
+        //System.out.println(json);
+
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
         NetworkTask networkTask = new NetworkTask(url, null, method ,null, this);

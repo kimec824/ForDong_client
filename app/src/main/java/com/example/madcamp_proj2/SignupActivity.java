@@ -43,7 +43,7 @@ public class SignupActivity extends AppCompatActivity implements AsyncTaskCallba
         email = findViewById(R.id.EmailCreate);
 
         create = findViewById(R.id.buttonCreate);
-        url_signup = "http://192.249.18.232:8080/login/signup";
+        url_signup = "http://"+getString(R.string.ip)+":8080/login/signup";
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
