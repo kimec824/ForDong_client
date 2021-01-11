@@ -28,7 +28,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Madcamp_proj2"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".MyphotosActivity"></activity>
+        <activity android:name=".ProfileActivity" />
         <activity android:name=".SignupActivity" />
 
         <meta-data

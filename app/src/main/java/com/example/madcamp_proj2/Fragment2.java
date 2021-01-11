@@ -122,7 +122,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
                 JSONObject photoObject = photosArray.getJSONObject(i);
                 FeedItem feed = new FeedItem();
 
-                feed.setName(photoObject.getString("name"));
+                feed.setId(photoObject.getString("name"));
                 feed.setImagePath(photoObject.getString("file_path"));
                 feed.setPhotoContext(photoObject.getString("context"));
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
@@ -140,7 +140,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
         System.out.println("CHECK FeedItems : " + feedItems.size());
         for(int i = 0 ; i<feedItems.size(); i++){
             FeedItem ci = feedItems.get(i);
-            recyclerViewAdapter.addItem(ci.getIcon(), ci.getName(), ci.getPhotoConText(), ci.getImagePath());
+            recyclerViewAdapter.addItem(ci.getIcon(), ci.getId(), ci.getPhotoConText(), ci.getImagePath());
         }
         //gridViewAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(recyclerViewAdapter);

@@ -21,8 +21,10 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,6 +70,8 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
     TextView userEmail;
     ImageView userImage;
     ApiService apiService;
+    private GridView gridView;
+    ProfileGridAdapter profileGridAdapter;
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected = new ArrayList<>();
@@ -89,6 +93,7 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
         userImage = findViewById(R.id.imageProfile);
         Button editbtn = (Button) findViewById(R.id.editbtn);
 
+        gridView = (GridView) findViewById(R.id.gridViewProfile);
 
         Intent intent = getIntent();
         userID.setText(intent.getStringExtra("userID"));
@@ -185,6 +190,15 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
         else{
             editbtn.setVisibility(View.GONE);
         }
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent1 = new Intent(ProfileActivity.this, MyphotosActivity.class);
+                intent1.putExtra("userID", userID.getText().toString());
+                startActivity(intent1);
+            }
+        });
     }
 
     /**
@@ -396,7 +410,8 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
     public void method1(String s) {
         try{
             //Json parsing
-            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(s);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
 
             JSONArray contactsArray = jsonObject.getJSONArray("Contact");
             JSONObject contact = contactsArray.getJSONObject(0);
@@ -411,6 +426,18 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
                 String path_url = "http://"+getString(R.string.ip)+":8080/photos/uploads/" + contact.getString("photo");
                 Glide.with(this).load(path_url).into(userImage);
             }
+
+            jsonObject = jsonArray.getJSONObject(1);
+            JSONArray photosArray = jsonObject.getJSONArray("Photo");
+            ArrayList arrayList = new ArrayList();
+
+            for(int i=0 ; i<photosArray.length(); i++){
+                JSONObject photo = photosArray.getJSONObject(i);
+                arrayList.add(photo.getString("file_path"));
+            }
+
+            profileGridAdapter = new ProfileGridAdapter(arrayList);
+            gridView.setAdapter(profileGridAdapter);
 
         }catch (JSONException e) {
             e.printStackTrace();

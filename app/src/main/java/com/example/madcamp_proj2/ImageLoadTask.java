@@ -68,7 +68,7 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
         System.out.println("CHECK FeedItems : " + feedItems.size());
         FeedItem ci = feedItems.get(feedItems.size()-1);
-        recyclerViewAdapter.addItem(ci.getIcon(), ci.getName(), ci.getPhotoConText(), ci.getImagePath());
+        recyclerViewAdapter.addItem(ci.getIcon(), ci.getId(), ci.getPhotoConText(), ci.getImagePath());
         recyclerViewAdapter.notifyDataSetChanged();;
         //gridview.setAdapter(recyclerViewAdapter);
     }

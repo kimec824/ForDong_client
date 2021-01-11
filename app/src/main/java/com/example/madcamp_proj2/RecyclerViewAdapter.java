@@ -59,11 +59,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public void addItem(Bitmap icon, String name, String context, String image_path) {
         FeedItem item = new FeedItem();
 
-        item.setIcon(icon);
-        item.setName(name);
+        //item.setIcon(icon);
         item.setPhotoContext(context);
         item.setImagePath(image_path);
-        //item.setStr(str);
+        item.setId(name);
 
         feedItems.add(item);
     }
@@ -95,12 +94,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void onBind(FeedItem feed) {
             // 아이템 내 각 위젯에 데이터 반영
-            String url = "http://192.249.18.250:8080/photos/uploads/" ;
+            String url = "http://"+tv_context.getContext().getString(R.string.ip)+":8080/photos/uploads/" ;
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
-            Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
-            Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.writerImage);
-            tv_writer_name.setText(feed.getName());
-            tv_name.setText(feed.getName());
+            Glide.with(tv_context.getContext()).load(url+feed.getImagePath()).into(this.iconImageView);
+            Glide.with(tv_context.getContext()).load(url+feed.getImagePath()).into(this.writerImage);
+            tv_writer_name.setText(feed.getId());
+            tv_name.setText(feed.getId());
             //tv_path.setText(feed.getImagePath());
             tv_context.setText(feed.getPhotoConText());
         }

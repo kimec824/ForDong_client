@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|right"
-        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
         android:text="Edit"
         app:layout_constraintBottom_toTopOf="@+id/imageProfile"
         app:layout_constraintEnd_toEndOf="parent"
@@ -89,7 +89,11 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <GridView
+        android:id="@+id/gridViewProfile"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+
+        android:gravity="center"
+        android:numColumns="4" />
 
 </LinearLayout>
