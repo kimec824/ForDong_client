@@ -55,7 +55,7 @@
         android:id="@+id/content_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="370dp"
+        android:layout_marginTop="350dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         android:background="@drawable/border"
         android:orientation="vertical">
@@ -109,11 +109,21 @@
             android:layout_gravity="center_horizontal|top|left"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginBottom="20dp"
-            android:layout_marginTop="52dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/spinner_background"
             android:backgroundTint="#7EF4F4F2"
             android:spinnerMode="dropdown" />
+
+        <EditText
+            android:id="@+id/editView2"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:hint="Select or Write group name"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
     </LinearLayout>
 

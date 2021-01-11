@@ -37,7 +37,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
     public static GridView gridView;
     public static PhotoGridAdapter photoGridAdapter;
 
-    ArrayList<String> groups; //갤러리 폴더 잡는거.
+    public static ArrayList<String> groups; //갤러리 폴더 잡는거.
 
     public Fragment2() {
         // Required empty public constructor
@@ -167,6 +167,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
                 FeedItem feed = new FeedItem();
 
                 feed.setId(photoObject.getString("ID"));
+                System.out.println(feed.getId());
                 feed.setName(photoObject.getString("name"));
                 feed.setImagePath(photoObject.getString("file_path"));
                 feed.setPhotoContext(photoObject.getString("context"));

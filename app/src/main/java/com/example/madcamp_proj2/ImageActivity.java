@@ -20,8 +20,12 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +54,9 @@ import retrofit2.Retrofit;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission_group.CAMERA;
+import static com.example.madcamp_proj2.Fragment2.groups;
+import static com.example.madcamp_proj2.MainActivity.context_main;
+import static com.example.madcamp_proj2.MainActivity.userID;
 
 public class ImageActivity extends AppCompatActivity implements View.OnClickListener {
     ApiService apiService;
@@ -63,6 +70,10 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     Bitmap mBitmap;
     TextView textView;
 
+    public EditText edt1, edt2;
+    public int check, spinner_position;
+    public String content, group_name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,22 +86,40 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         fabCamera.setOnClickListener(this);
         fabUpload.setOnClickListener(this);
         back.setOnClickListener(this);
-        /**
-        fabCamera.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
 
-            }
-        });
-        fabUpload.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
+        //edit관련 내용을 여기서 받아야하고,
+        //choose하는 스피너도 여기 있어야함.
 
-            }
-        });
-        */
+        check = groups.size();
+        groups.add("-Write group name in myself-");
+        Spinner spiner = (Spinner) findViewById(R.id.spinner1);
+        ArrayAdapter<String> spinadapter = new ArrayAdapter<String>( context_main, R.layout.spinner_item, groups);
+        spinadapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        spiner.setAdapter(spinadapter);
+
+        edt1 = (EditText) findViewById(R.id.editView);
+        edt2 = (EditText) findViewById(R.id.editView2);
+
+
+        group_name=null;
+
+
         askPermissions();
         initRetrofitClient();
+
+
+        spiner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //Toast.makeText(getActivity().getApplicationContext(), "selected department : " + dep_name[position],Toast.LENGTH_SHORT).show();
+                spinner_position = position;
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
     }
 
@@ -196,10 +225,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                          }
                      }
                      else{
-
                              mBitmap = BitmapFactory.decodeFile(filePath);
                              //mBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), Uri.fromFile(file));
-
                      }
 
                     imageView.setImageBitmap(mBitmap);
@@ -324,16 +351,32 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("upload", "hi" + file.getName(), reqFile);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
+            System.out.println("ihii" + this.content);
+            Log.e("whatisthis",this.content);
+            RequestBody id = RequestBody.create(MediaType.parse("text/plain"), userID);
+            RequestBody content = RequestBody.create(MediaType.parse("text/plain"), this.content);
+            RequestBody groupname = RequestBody.create(MediaType.parse("text/plain"), this.group_name);
 
-            Call<ResponseBody> req = apiService.postImage(body, name);
+            Call<ResponseBody> req = apiService.postImage(body, name, id, content, groupname);
             req.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     if (response.code() == 200) {
+                        System.out.println("response : " + response.toString());
+                        String[] strarray = response.toString().split("/");
+                        String last;
+                        for (int i=0; i<strarray.length; i++){
+                            System.out.println( i + " : "+ strarray[i]);
+
+                        }
+                        last = strarray[6].substring(0,strarray[6].length()-1);
+                        System.out.println("responsees : "+ last);
                         textView.setText("Uploaded Successfully!");
                         textView.setTextColor(Color.BLUE);
                     }
+
+
 
                     Toast.makeText(getApplicationContext(), response.code() + " ", Toast.LENGTH_SHORT).show();
                 }
@@ -363,8 +406,21 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                 break;
 
             case R.id.upload:
-                if (mBitmap != null)
-                    multipartImageUpload();
+                if (mBitmap != null){
+                    content = edt1.getText().toString();
+                    if(spinner_position == check){
+                        group_name= edt2.getText().toString();
+                        multipartImageUpload();
+
+
+                    }
+                    else{
+                        group_name = groups.get(spinner_position);
+                        multipartImageUpload();
+                    }
+
+                    groups.remove(groups.size()-1);
+                }
                 else {
                     Toast.makeText(getApplicationContext(), "Bitmap is null. Try again", Toast.LENGTH_SHORT).show();
                 }

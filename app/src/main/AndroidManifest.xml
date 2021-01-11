@@ -62,11 +62,13 @@
             android:theme="@style/Theme.Madcamp_proj2.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ImageActivity" />
+        <activity
+            android:name=".ImageActivity"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
