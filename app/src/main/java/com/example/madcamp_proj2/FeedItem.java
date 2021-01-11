@@ -3,7 +3,7 @@ package com.example.madcamp_proj2;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
-public class GridViewItem {
+public class FeedItem {
     private String name;
     private Bitmap image = null; //gridview item
     private String image_path;

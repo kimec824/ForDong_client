@@ -7,4 +7,7 @@ public interface AsyncTaskCallback {
     default void method2(String s){
         return;
     };
+    default void method3(String s){
+        return;
+    };
 }

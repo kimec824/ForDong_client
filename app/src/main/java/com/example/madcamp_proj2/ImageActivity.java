@@ -318,9 +318,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             fos.flush();
             fos.close();
 
-
             RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part body = MultipartBody.Part.createFormData("upload", file.getName(), reqFile);
+            MultipartBody.Part body = MultipartBody.Part.createFormData("upload", "hi" + file.getName(), reqFile);
             RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
 
             Call<ResponseBody> req = apiService.postImage(body, name);

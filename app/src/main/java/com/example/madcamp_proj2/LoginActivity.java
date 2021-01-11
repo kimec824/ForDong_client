@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NetworkTask networkTask = new NetworkTask(url+"ID="+id.getText().toString()+"&Password="+password.getText().toString(), null, null, LoginActivity.this);
+                NetworkTask networkTask = new NetworkTask(url+"ID="+id.getText().toString()+"&Password="+password.getText().toString(), null,"GET", null, LoginActivity.this);
                 networkTask.execute();
             }
         });

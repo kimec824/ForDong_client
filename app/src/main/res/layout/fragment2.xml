@@ -6,21 +6,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
-    tools:context=".Fragment3">
+    android:paddingTop="45dp"
+    tools:context=".Fragment2">
 
 
-    <GridView
-        android:id="@+id/gridView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler1"
+        android:scrollbars="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:layout_weight="9"
-        android:layout_marginLeft="7dp"
-        android:layout_marginRight="8dp"
-        android:columnWidth="100dp"
-        android:numColumns="4"
-        android:paddingTop="100dp"></GridView>
-
+        android:layout_height="match_parent" />
 
     <Button
         android:id="@+id/button"
