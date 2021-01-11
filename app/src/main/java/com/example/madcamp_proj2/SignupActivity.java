@@ -68,6 +68,7 @@ public class SignupActivity extends AppCompatActivity implements AsyncTaskCallba
                 jsonObject.accumulate("ID", ID.getText().toString());
                 jsonObject.accumulate("phone", phone.getText().toString());
                 jsonObject.accumulate("email", email.getText().toString());
+                jsonObject.accumulate("photo","null");
                 NetworkTask networkTask = new NetworkTask(url_signup, null, "POST", jsonObject,  SignupActivity.this);
                 networkTask.execute();
             }catch (JSONException e){

@@ -28,8 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Madcamp_proj2"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ProfileActivity"></activity>
-        <activity android:name=".SignupActivity" />
+
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -41,7 +40,6 @@
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -69,6 +67,10 @@
             android:name=".ImageActivity"
             android:theme="@style/Theme.Madcamp_proj2.NoActionBar">
         </activity>
+        <activity android:name=".MyphotosActivity"></activity>
+        <activity android:name=".ProfileActivity" ></activity>
+        <activity android:name=".SignupActivity" ></activity>
+
     </application>
 
 </manifest>

@@ -69,6 +69,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         item.setPhoto_group(photo_group);
         //item.setStr(str);
 
+
         feedItems.add(item);
     }
 
@@ -98,20 +99,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void onBind(FeedItem feed) {
             // 아이템 내 각 위젯에 데이터 반영
+
             String url = "http://"+context_main.getString(R.string.ip)+":8080/photos/uploads/";
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
 
             for(int i= 0 ; i<contactItems.size() ; i++){
-                if(feed.getId().equals(contactItems.get(i).getId()) ){
-                    String profile_url = url+contactItems.get(i).getphoto();
-                    Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
+                if(feed.getId().equals(contactItems.get(i).getID()) ){
+                    String profile_url = url+contactItems.get(i).getPhoto();
+                    Glide.with(recyclerView).load(profile_url).into(this.writerImage);
                     break;
                 }
             }
-
-            Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.writerImage);
+            Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
             tv_writer_name.setText(feed.getId());
             tv_name.setText(feed.getId());
+
             tv_context.setText(feed.getPhotoConText());
         }
     }

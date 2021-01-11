@@ -370,9 +370,22 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                         String[] strarray = response.toString().split("/");
                         image_path = strarray[6].substring(0,strarray[6].length()-1);
                         System.out.println("responsees : "+ image_path);
+                        groups.remove(groups.size()-1);
 
-                        textView.setText("Uploaded Successfully!");
-                        textView.setTextColor(Color.BLUE);
+                        if(spinner_position == check){
+
+                            //gridview 적용.
+                            photoGridAdapter.addItem( image_path, group_name);
+                            groups.add(group_name);
+                            photoGridAdapter.notifyDataSetChanged();
+                            //이건되는지 안되는지 확인해야함.
+                            gridView.setAdapter(photoGridAdapter);
+                            
+                            textView.setText("Uploaded Successfully!");
+                            textView.setTextColor(Color.BLUE);
+                            finish();
+                        }
+
                     }
 
 
@@ -409,21 +422,12 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                     if(spinner_position == check){
                         group_name= edt2.getText().toString();
                         multipartImageUpload();
-                        groups.remove(groups.size()-1);
-                        //gridview 적용.
-                        photoGridAdapter.addItem( image_path, group_name);
-                        groups.add(group_name);
-                        photoGridAdapter.notifyDataSetChanged();
-                        //이건되는지 안되는지 확인해야함.
-                        gridView.setAdapter(photoGridAdapter);
-
                     }
                     else{
                         group_name = groups.get(spinner_position);
                         multipartImageUpload();
-                        groups.remove(groups.size()-1);
                     }
-                    finish();
+
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Bitmap is null. Try again", Toast.LENGTH_SHORT).show();

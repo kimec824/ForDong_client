@@ -72,18 +72,6 @@
             android:gravity="center"
             android:text="Dial" />
 
-
-        <Button
-            android:id="@+id/editbtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:text="Edit" />
-
-
         <Button
             android:id="@+id/mypagebtn"
             android:layout_width="0dp"

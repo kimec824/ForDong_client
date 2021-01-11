@@ -138,6 +138,8 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
                 contact.setUser_name(movieObject.getString("name"));
                 contact.setUser_phNumber(movieObject.getString("phone"));
                 contact.setMail(movieObject.getString("email"));
+                contact.setID(movieObject.getString("ID"));
+                contact.setPhoto(movieObject.getString("photo"));
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phone")+movieObject.getString("email"));
 
                 contactItems.add(contact);
@@ -151,7 +153,6 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
             Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
             ContactItem ci = contactItems.get(i);
             ci.setUser_profile(sampleBitmap);
-            ci.setAddress("sample address");
             adapter.addItem(ci);
         }
         listview.setAdapter(adapter);

@@ -174,9 +174,6 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
                 feedItems.add(feed);
-                //String path_url = "http://192.249.18.232:8080/photos/uploads/" + feed.getImagePath();
-                //ImageLoadTask task = new ImageLoadTask(path_url , feed);
-                //task.execute();
             }
         }catch (JSONException e) {
             e.printStackTrace();
@@ -198,7 +195,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
         /**
         for(int i = 0 ; i<feedItems.size(); i++){
             FeedItem ci = feedItems.get(i);
-            recyclerViewAdapter.addItem(ci.getIcon(), ci.getName(), ci.getPhotoConText(), ci.getImagePath());
+            recyclerViewAdapter.addItem(ci.getIcon(), ci.getId(), ci.getPhotoConText(), ci.getImagePath());
         }
         //gridViewAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(recyclerViewAdapter);

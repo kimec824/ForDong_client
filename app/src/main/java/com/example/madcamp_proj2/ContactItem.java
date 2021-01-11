@@ -7,29 +7,35 @@ import java.io.Serializable;
 public class ContactItem implements Serializable {
     private Bitmap user_profile;
     private String user_phNumber, user_name;
-    private String photo_id, person_id;
-    private String mail, address;
-    private int id;
+    private String mail;
+
+    private String ID;
+    private String photo;
 
     public ContactItem(){}
+
+    public String getPhoto() {
+        return photo;
+    }
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getID() {return ID; }
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public Bitmap getUser_profile(){return user_profile;}
     public void setUser_profile(Bitmap user_profile){this.user_profile = user_profile;}
 
-    public String getPhoto_id(){return photo_id;}
-    public String getPerson_id(){return person_id;}
-    public void setPhoto_id(String id){this.photo_id = id;}
-    public void setPerson_id(String id){this.person_id = id;}
-
-    public String getMail(){return mail;}
+    public String getMail(){ return this.mail; }
     public void setMail(String mail){this.mail = mail;}
-    public String getAddress(){return address;}
-    public void setAddress(String address){this.address = address;}
+
 
     public String getUser_phNumber(){return user_phNumber;}
     public String getUser_name(){return user_name;}
-    public void setId(int id){this.id = id;}
-    public int getId(){return id;}
+
     public void setUser_phNumber(String string){this.user_phNumber = string;}
     public void setUser_name(String string){this.user_name = string; }
 
