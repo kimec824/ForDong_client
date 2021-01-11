@@ -4,9 +4,20 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 
 public class FeedItem {
+    private String id;
     private String name;
     private Bitmap image = null; //gridview item
     private String image_path;
+    private String photo_group;
+
+    public String getId() { return id;  }
+
+    public void setId(String id) { this.id = id;  }
+
+    public String getPhoto_group() { return photo_group;  }
+
+    public void setPhoto_group(String photo_group) {this.photo_group = photo_group; }
+
     private String context;
     //private String dep_str ; // 추가하고싶으면 다른 정보들
 

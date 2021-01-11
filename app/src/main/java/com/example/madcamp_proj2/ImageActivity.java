@@ -20,6 +20,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,7 +59,7 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     private ArrayList<String> permissions = new ArrayList<>();
     private final static int ALL_PERMISSIONS_RESULT = 107;
     private final static int IMAGE_RESULT = 200;
-    FloatingActionButton fabCamera, fabUpload;
+    ImageButton fabCamera, fabUpload, back;
     Bitmap mBitmap;
     TextView textView;
 
@@ -67,11 +68,13 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.imageactivity);
 
-        fabCamera = findViewById(R.id.fab);
-        fabUpload = findViewById(R.id.fabUpload);
+        fabCamera = findViewById(R.id.camera);
+        fabUpload = findViewById(R.id.upload);
         textView = findViewById(R.id.textView);
+        back = findViewById(R.id.backbutton);
         fabCamera.setOnClickListener(this);
         fabUpload.setOnClickListener(this);
+        back.setOnClickListener(this);
         /**
         fabCamera.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -355,16 +358,19 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.fab:
+            case R.id.camera:
                 startActivityForResult(getPickImageChooserIntent(), IMAGE_RESULT);
                 break;
 
-            case R.id.fabUpload:
+            case R.id.upload:
                 if (mBitmap != null)
                     multipartImageUpload();
                 else {
                     Toast.makeText(getApplicationContext(), "Bitmap is null. Try again", Toast.LENGTH_SHORT).show();
                 }
+                break;
+            case R.id.backbutton:
+                finish();
                 break;
         }
     }

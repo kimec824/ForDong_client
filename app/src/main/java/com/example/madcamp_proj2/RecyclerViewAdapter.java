@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import static com.example.madcamp_proj2.Fragment2.recyclerView;
-
+import static com.example.madcamp_proj2.MainActivity.context_main;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,8 +23,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     public ArrayList<FeedItem> feedItems = new ArrayList<FeedItem>();
 
 
-    public RecyclerViewAdapter(){
-    }
+    public RecyclerViewAdapter(){}
 
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
@@ -55,6 +54,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return feedItems.size() ;
     }
 
+    public void clearItem() {
+        feedItems = new ArrayList<FeedItem>();
+    }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
     public void addItem(Bitmap icon, String name, String context, String image_path) {
         FeedItem item = new FeedItem();
@@ -95,7 +97,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void onBind(FeedItem feed) {
             // 아이템 내 각 위젯에 데이터 반영
-            String url = "http://192.249.18.232:8080/photos/uploads/" ;
+            String url = "http://"+context_main.getString(R.string.ip)+":8080/photos/uploads/";
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.writerImage);

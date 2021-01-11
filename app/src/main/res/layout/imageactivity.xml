@@ -1,55 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:layout_height="match_parent">
 
 
-    <RelativeLayout
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingTop="10dp"
+        android:paddingLeft="15dp"
+        android:layout_gravity="top|start"
+        android:textSize="20dp"
+        android:text="Share memories" />
+
+    <LinearLayout
         android:id="@+id/content_main"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="16dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:layout_height="300dp"
+        android:layout_marginTop="050dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@drawable/border"
+        android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="35dp"
+            android:text="Image"
+            android:textSize="14dp"
+            android:background="@drawable/border"/>
 
         <TextView
             android:id="@+id/textView"
+            android:layout_width="60dp"
+            android:layout_height="10dp"
             android:layout_centerHorizontal="true"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="250dp"
             android:layout_height="250dp"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop" />
+    </LinearLayout>
 
-    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/content_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="370dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@drawable/border"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="35dp"
+            android:gravity="center_vertical"
+            android:text="Content"
+            android:textSize="14dp"
+            android:background="@drawable/border"/>
+
+        <EditText
+            android:id="@+id/editView"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:hint="Write content"
+            android:layout_gravity="center"
+            android:textSize="13sp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/choose_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="500dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:background="@drawable/border"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/choose"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:paddingLeft="35dp"
+            android:gravity="center_vertical"
+            android:text="Choose View Group"
+            android:textSize="14dp"
+            android:background="@drawable/border"/>
+
+        <Spinner
+            android:id="@+id/spinner1"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_gravity="center_horizontal|top|left"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="52dp"
+            android:background="@drawable/spinner_background"
+            android:backgroundTint="#7EF4F4F2"
+            android:spinnerMode="dropdown" />
+
+    </LinearLayout>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/camera"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|end"
+        android:gravity="center"
+        android:layout_margin="16dp"
+        android:background="@drawable/camera" />
+
+
+    <ImageButton
+        android:id="@+id/upload"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|end"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="76dp"
+        android:background="@drawable/upload" />
+
+    <ImageButton
+        android:id="@+id/backbutton"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/backbutton" />
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabUpload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_margin="16dp"
-        app:srcCompat="@android:drawable/ic_menu_upload" />
-
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

@@ -7,7 +7,7 @@ import android.os.AsyncTask;
 import java.net.URL;
 import java.util.HashMap;
 
-import static com.example.madcamp_proj2.Fragment2.feedItems;
+
 import static com.example.madcamp_proj2.Fragment2.recyclerViewAdapter;
 //import static com.example.madcamp_proj2.Fragment2.gridview;
 
@@ -63,13 +63,13 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
-        feed.setIcon(bitmap);
-        feedItems.add(feed);
+        //feed.setIcon(bitmap);
+        //feedItems.add(feed);
 
-        System.out.println("CHECK FeedItems : " + feedItems.size());
-        FeedItem ci = feedItems.get(feedItems.size()-1);
-        recyclerViewAdapter.addItem(ci.getIcon(), ci.getName(), ci.getPhotoConText(), ci.getImagePath());
-        recyclerViewAdapter.notifyDataSetChanged();;
+        //System.out.println("CHECK FeedItems : " + feedItems.size());
+        //FeedItem ci = feedItems.get(feedItems.size()-1);
+        //recyclerViewAdapter.addItem(ci.getIcon(), ci.getName(), ci.getPhotoConText(), ci.getImagePath());
+        //recyclerViewAdapter.notifyDataSetChanged();;
         //gridview.setAdapter(recyclerViewAdapter);
     }
 
