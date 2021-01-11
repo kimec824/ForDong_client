@@ -11,6 +11,15 @@ public class ContactItem implements Serializable {
     private String mail, address;
     private int id;
     private String ID;
+    private String photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 
     public String getID() {
         return ID;

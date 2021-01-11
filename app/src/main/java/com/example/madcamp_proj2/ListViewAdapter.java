@@ -39,6 +39,8 @@ import static com.example.madcamp_proj2.Fragment1.listview;
 
 import android.app.Activity;
 
+import com.bumptech.glide.Glide;
+
 //import static com.example.helloworld.MainActivity.contactItems;
 //import static com.example.helloworld.Page1Fragment.adapter;
 //import static com.example.helloworld.Page1Fragment.listview;
@@ -55,8 +57,6 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
     public TextView titleTextView, descTextView;
     public ContactItem contactItem;
     AsyncTaskCallback callback;
-
-
 
     // ListViewAdapter의 생성자
     public ListViewAdapter() {
@@ -90,7 +90,6 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
 
         //button 설정 Call(dial로 이동), edit(dialog 띄우기), page(activity전환)
         Button dialbtn = (Button) convertView.findViewById(R.id.dialbtn);
-        Button editbtn = (Button) convertView.findViewById(R.id.editbtn);
         Button mypagebtn = (Button) convertView.findViewById(R.id.mypagebtn);
 
 
@@ -110,120 +109,6 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
                 ContactItem now = contactItemList.get(pos);
                 Intent tt = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ now.getUser_phNumber()));
                 context.startActivity(tt);
-            }
-        });
-
-        //edit button click
-        editbtn.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-                System.out.println( MainActivity.userID );
-
-                ContactItem con = contactItemList.get(position);
-
-                //주인하고 맞는지 체크
-                if(con.getUser_name() == userID){
-                    final LinearLayout linear = (LinearLayout) View.inflate(context, R.layout.contactdialog, null);
-                    AlertDialog.Builder adb = new AlertDialog.Builder(context, R.style.MyDialogTheme);
-
-                    EditText edt = linear.findViewById(R.id.et1);
-                    adb.setView(linear);
-                    edt.setText(con.getUser_name());
-
-                    EditText edt2 = linear.findViewById(R.id.et2);
-                    adb.setView(linear);
-                    edt2.setText(con.getUser_phNumber());
-
-                    EditText edt3 = linear.findViewById(R.id.et3);
-                    adb.setView(linear);
-                    edt3.setText(con.getMail());
-
-                    EditText edt4 = linear.findViewById(R.id.et4);
-                    adb.setView(linear);
-                    edt4.setText(con.getAddress());
-
-                    //ok는 수정했다는것.
-                    adb.setTitle("Edit Contact")
-                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-
-                                    String name = edt.getText().toString();
-                                    String number = edt2.getText().toString();
-                                    String mail = edt3.getText().toString();
-                                    String add = edt4.getText().toString();
-
-                                    //
-                                    //DATABASE에 넘겨주는 작업이 필요함.(PUT)
-                                    //
-                                    String url = "http://"+context.getString(R.string.ip)+":8080/contacts";
-                                    String method = "PUT";
-
-                                    //build jsonObject
-                                    JSONObject jsonObject = new JSONObject();
-                                    try {
-                                        jsonObject.accumulate("name",con.getUser_name());
-                                        jsonObject.accumulate("phone",con.getUser_phNumber());
-                                        jsonObject.accumulate("email",con.getMail());
-                                        jsonObject.accumulate("changename",name);
-                                        jsonObject.accumulate("changephone",number);
-                                        jsonObject.accumulate("changeemail",mail);
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    }
-
-                                    ContactItem temp = new ContactItem();
-                                    Bitmap sampleBitmap = BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person);
-                                    temp.setUser_profile(sampleBitmap);
-                                    temp.setUser_name(name);
-                                    temp.setUser_phNumber(number);
-                                    temp.setMail(mail);
-                                    temp.setAddress(add);
-                                    contactItemList.set(position, temp);
-
-                                    adapter.notifyDataSetChanged();
-                                    listview.setAdapter(adapter);
-
-                                    System.out.println("checkpoint");
-                                    NetworkTask networkTask = new NetworkTask(url, null, method, jsonObject, callback  );
-                                    networkTask.execute();
-                                }
-                            })
-                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                }
-                            });
-
-                    AlertDialog finalDialog = adb.create();
-                    finalDialog.setOnShowListener(new DialogInterface.OnShowListener() {
-                        @Override
-                        public void onShow(DialogInterface arg0) {
-                            finalDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#6E6557"));
-                            finalDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.parseColor("#6E6557"));
-                        }
-                    });
-                    finalDialog.show();
-                }
-                else{
-                    AlertDialog.Builder ad = new AlertDialog.Builder(context);
-                    ad.setMessage("Permission denied.");
-                    ad.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    ad.show();
-
-                    //Toast.makeText( MainActivity.context_main ,"permission denied.", Toast.LENGTH_SHORT).show();
-                }
             }
         });
 
@@ -268,11 +153,15 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
         contactItem = contactItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        iconImageView.setImageBitmap(contactItem.getUser_profile());
         titleTextView.setText(contactItem.getUser_name());
         descTextView.setText(contactItem.getUser_phNumber());
 
-
+        if(contactItem.getPhoto().equals("null"))
+            iconImageView.setImageBitmap(contactItem.getUser_profile());
+        else {
+            String path_url = "http://" + iconImageView.getContext().getString(R.string.ip) + ":8080/photos/uploads/" + contactItem.getPhoto();
+            Glide.with(iconImageView.getContext()).load(path_url).into(iconImageView);
+        }
 
         //dialbtn.setOnClickListener(this);
         //editbtn.setOnClickListener(this);
@@ -298,8 +187,4 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
             layout.setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void method3(String s) {
-        System.out.println(s);
-    }
 }
