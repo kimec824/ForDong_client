@@ -153,11 +153,9 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
                                     String mail = edt3.getText().toString();
                                     String add = edt4.getText().toString();
 
-
-
                                     //
-                                    //DATABASE에 넘겨주는 작업이 필요함.
-                                    // put
+                                    //DATABASE에 넘겨주는 작업이 필요함.(PUT)
+                                    //
                                     String url = "http://"+context.getString(R.string.ip)+":8080/contacts";
                                     String method = "PUT";
 
@@ -189,15 +187,11 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
                                     System.out.println("checkpoint");
                                     NetworkTask networkTask = new NetworkTask(url, null, method, jsonObject, callback  );
                                     networkTask.execute();
-
-
-
                                 }
                             })
                             .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-
                                 }
                             });
 
@@ -238,6 +232,9 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
             @Override
             public void onClick(View view){
                 Log.d("mypage","click");
+                Intent tt = new Intent(context ,ProfileActivity.class);
+                tt.putExtra("userID", userID);
+                context.startActivity(tt);
             }
         });
 
