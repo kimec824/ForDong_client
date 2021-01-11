@@ -6,6 +6,7 @@ public class ListViewItem_Comment {
     private Bitmap iconDrawable;
     private String descStr=null;
     private String writerStr=null;
+    private String timeStr=null;
 
     public void setIcon(Bitmap icon) {
         iconDrawable = icon ;
@@ -16,6 +17,7 @@ public class ListViewItem_Comment {
     public void setWriter(String writer) {
         writerStr = writer ;
     }
+    public void setTime(String time){timeStr = time;}
 
     public Bitmap getIcon() {
         return this.iconDrawable ;
@@ -26,4 +28,5 @@ public class ListViewItem_Comment {
     public String getWriter() {
         return this.writerStr ;
     }
+    public String getTime(){return this.timeStr;}
 }

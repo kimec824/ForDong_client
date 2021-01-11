@@ -134,10 +134,28 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent=new Intent(getActivity(), Viewpost_announce.class);
-                String chosenTitle=boardItems.get(position).gettitle();
-                intent.putExtra("title", chosenTitle);
-                getActivity().startActivity(intent);
+                System.out.println(boardItems.get(position).gettype());
+                if(boardItems.get(position).gettype()==0)
+                {
+                    Intent intent=new Intent(getActivity(), Viewpost_announce.class);
+                    String chosenTitle=boardItems.get(position).gettitle();
+                    intent.putExtra("title", chosenTitle);
+                    getActivity().startActivity(intent);
+                }
+                else if(boardItems.get(position).gettype()==1)
+                {
+                    Intent intent=new Intent(getActivity(), Viewpost_vote.class);
+                    String chosenTitle=boardItems.get(position).gettitle();
+                    intent.putExtra("title", chosenTitle);
+                    getActivity().startActivity(intent);
+                }
+                else if(boardItems.get(position).gettype()==2)
+                {
+                    Intent intent=new Intent(getActivity(), Viewpost_announce.class);
+                    String chosenTitle=boardItems.get(position).gettitle();
+                    intent.putExtra("title", chosenTitle);
+                    getActivity().startActivity(intent);
+                }
                 //activity에서 선택한 position에 따라서 해당하는 게시글 view activity로 넘어간다
             }
         });

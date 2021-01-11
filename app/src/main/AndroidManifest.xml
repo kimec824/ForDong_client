@@ -32,6 +32,7 @@
         <activity android:name=".Addpost_announce"></activity>
         <activity android:name=".Viewpost_announce"></activity>
         <activity android:name=".Viewpost_vote"></activity>
+        <activity android:name=".Addcomment"/>
         <activity android:name=".SignupActivity" />
 
         <meta-data

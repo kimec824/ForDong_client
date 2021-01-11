@@ -43,7 +43,6 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
                 SimpleDateFormat simpleDate=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 String getTime=simpleDate.format(mDate);
                 newpost.settime(getTime);
-                //newpost.setwriter();
                 //newpost를 json object로 바꿈
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -80,9 +79,9 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
 
         NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null, jsonObject,this);
         networkTask.execute();
-
-        Intent intent=new Intent(getApplicationContext(), MainActivity.class);
-        startActivity(intent);
+        finish();
+        //Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+        //startActivity(intent);
     }
 
     @Override
