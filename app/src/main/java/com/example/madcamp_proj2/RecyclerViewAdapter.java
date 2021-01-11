@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import static com.example.madcamp_proj2.Fragment1.contactItems;
 import static com.example.madcamp_proj2.Fragment2.recyclerView;
 import static com.example.madcamp_proj2.MainActivity.context_main;
 
@@ -90,7 +92,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             tv_writer_name =(TextView) itemView.findViewById(R.id.writer_name);
             iconImageView = (ImageView) itemView.findViewById(R.id.imageview);
             tv_name = (TextView) itemView.findViewById(R.id.writer_name2);
-            //tv_path = (TextView) itemView.findViewById(R.id.textView4);
             tv_context = (TextView) itemView.findViewById(R.id.context);
 
         }
@@ -99,11 +100,18 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             // 아이템 내 각 위젯에 데이터 반영
             String url = "http://"+context_main.getString(R.string.ip)+":8080/photos/uploads/";
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
-            Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
+
+            for(int i= 0 ; i<contactItems.size() ; i++){
+                if(feed.getId().equals(contactItems.get(i).getId()) ){
+                    String profile_url = url+contactItems.get(i).getphoto();
+                    Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
+                    break;
+                }
+            }
+
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.writerImage);
             tv_writer_name.setText(feed.getId());
             tv_name.setText(feed.getId());
-            //tv_path.setText(feed.getImagePath());
             tv_context.setText(feed.getPhotoConText());
         }
     }
