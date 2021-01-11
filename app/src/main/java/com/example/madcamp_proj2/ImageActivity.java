@@ -54,7 +54,9 @@ import retrofit2.Retrofit;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission_group.CAMERA;
+import static com.example.madcamp_proj2.Fragment2.gridView;
 import static com.example.madcamp_proj2.Fragment2.groups;
+import static com.example.madcamp_proj2.Fragment2.photoGridAdapter;
 import static com.example.madcamp_proj2.MainActivity.context_main;
 import static com.example.madcamp_proj2.MainActivity.userID;
 
@@ -73,6 +75,8 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
     public EditText edt1, edt2;
     public int check, spinner_position;
     public String content, group_name;
+    String image_path;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -350,32 +354,26 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
 
             RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), file);
             MultipartBody.Part body = MultipartBody.Part.createFormData("upload", "hi" + file.getName(), reqFile);
-            RequestBody name = RequestBody.create(MediaType.parse("text/plain"), "upload");
             System.out.println("ihii" + this.content);
             Log.e("whatisthis",this.content);
             RequestBody id = RequestBody.create(MediaType.parse("text/plain"), userID);
             RequestBody content = RequestBody.create(MediaType.parse("text/plain"), this.content);
             RequestBody groupname = RequestBody.create(MediaType.parse("text/plain"), this.group_name);
 
-            Call<ResponseBody> req = apiService.postImage(body, name, id, content, groupname);
+            Call<ResponseBody> req = apiService.postImage(body, id, content, groupname);
             req.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                     if (response.code() == 200) {
-                        System.out.println("response : " + response.toString());
-                        String[] strarray = response.toString().split("/");
-                        String last;
-                        for (int i=0; i<strarray.length; i++){
-                            System.out.println( i + " : "+ strarray[i]);
 
-                        }
-                        last = strarray[6].substring(0,strarray[6].length()-1);
-                        System.out.println("responsees : "+ last);
+                        String[] strarray = response.toString().split("/");
+                        image_path = strarray[6].substring(0,strarray[6].length()-1);
+                        System.out.println("responsees : "+ image_path);
+
                         textView.setText("Uploaded Successfully!");
                         textView.setTextColor(Color.BLUE);
                     }
-
 
 
                     Toast.makeText(getApplicationContext(), response.code() + " ", Toast.LENGTH_SHORT).show();
@@ -411,21 +409,28 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                     if(spinner_position == check){
                         group_name= edt2.getText().toString();
                         multipartImageUpload();
-
+                        groups.remove(groups.size()-1);
+                        //gridview 적용.
+                        photoGridAdapter.addItem( image_path, group_name);
+                        groups.add(group_name);
+                        photoGridAdapter.notifyDataSetChanged();
+                        //이건되는지 안되는지 확인해야함.
+                        gridView.setAdapter(photoGridAdapter);
 
                     }
                     else{
                         group_name = groups.get(spinner_position);
                         multipartImageUpload();
+                        groups.remove(groups.size()-1);
                     }
-
-                    groups.remove(groups.size()-1);
+                    finish();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Bitmap is null. Try again", Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.backbutton:
+                groups.remove(groups.size()-1);
                 finish();
                 break;
         }

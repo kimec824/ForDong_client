@@ -58,13 +58,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         feedItems = new ArrayList<FeedItem>();
     }
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Bitmap icon, String name, String context, String image_path) {
+    public void addItem(String userid, String context, String image_path, String photo_group) {
         FeedItem item = new FeedItem();
 
-        item.setIcon(icon);
-        item.setName(name);
+        item.setId(userid);
         item.setPhotoContext(context);
         item.setImagePath(image_path);
+        item.setPhoto_group(photo_group);
         //item.setStr(str);
 
         feedItems.add(item);
@@ -101,8 +101,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.writerImage);
-            tv_writer_name.setText(feed.getName());
-            tv_name.setText(feed.getName());
+            tv_writer_name.setText(feed.getId());
+            tv_name.setText(feed.getId());
             //tv_path.setText(feed.getImagePath());
             tv_context.setText(feed.getPhotoConText());
         }

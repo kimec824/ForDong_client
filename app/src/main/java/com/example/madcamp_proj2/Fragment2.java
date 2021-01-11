@@ -116,7 +116,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
                      System.out.println("now is in "+ ci.getPhoto_group());
                      if(ci.getPhoto_group().equals(folder_name)){
                          System.out.println("input in "+ folder_name);
-                         recyclerViewAdapter.addItem(ci.getIcon(), ci.getName(), ci.getPhotoConText(), ci.getImagePath());
+                         recyclerViewAdapter.addItem(ci.getId(), ci.getPhotoConText(), ci.getImagePath(), ci.getPhoto_group() );
                      }
                  }
                  //gridViewAdapter.notifyDataSetChanged();
@@ -168,7 +168,6 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
                 feed.setId(photoObject.getString("ID"));
                 System.out.println(feed.getId());
-                feed.setName(photoObject.getString("name"));
                 feed.setImagePath(photoObject.getString("file_path"));
                 feed.setPhotoContext(photoObject.getString("context"));
                 feed.setPhoto_group(photoObject.getString("photo_group"));
