@@ -95,7 +95,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void onBind(FeedItem feed) {
             // 아이템 내 각 위젯에 데이터 반영
-            String url = "http://192.249.18.232:8080/photos/uploads/" ;
+            String url = "http://192.249.18.250:8080/photos/uploads/" ;
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
             Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.writerImage);

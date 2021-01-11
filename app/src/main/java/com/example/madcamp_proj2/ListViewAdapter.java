@@ -231,9 +231,10 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
         mypagebtn.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View view){
+                ContactItem con = contactItemList.get(position);
                 Log.d("mypage","click");
                 Intent tt = new Intent(context ,ProfileActivity.class);
-                tt.putExtra("userID", userID);
+                tt.putExtra("userID", con.getID());
                 context.startActivity(tt);
             }
         });

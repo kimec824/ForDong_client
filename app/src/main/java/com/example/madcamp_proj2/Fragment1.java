@@ -138,6 +138,9 @@ public class Fragment1 extends Fragment implements AsyncTaskCallback{
                 contact.setUser_name(movieObject.getString("name"));
                 contact.setUser_phNumber(movieObject.getString("phone"));
                 contact.setMail(movieObject.getString("email"));
+                if(movieObject.getString("ID")!=null)
+                    contact.setID(movieObject.getString("ID"));
+
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phone")+movieObject.getString("email"));
 
                 contactItems.add(contact);

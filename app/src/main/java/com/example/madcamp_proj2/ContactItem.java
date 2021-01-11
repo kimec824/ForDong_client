@@ -10,6 +10,15 @@ public class ContactItem implements Serializable {
     private String photo_id, person_id;
     private String mail, address;
     private int id;
+    private String ID;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public ContactItem(){}
 
