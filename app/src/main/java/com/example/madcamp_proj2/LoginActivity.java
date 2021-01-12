@@ -20,10 +20,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.CallbackManager;
+import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -43,9 +47,11 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         mCallbackManager = CallbackManager.Factory.create();
         mLoginCallback = new LoginCallback();
+        mLoginCallback.context = this;
 
         btn_facebook_login = (LoginButton) findViewById(R.id.btn_facebook_login);
         btn_facebook_login.setReadPermissions(Arrays.asList("public_profile", "email"));
@@ -102,8 +108,7 @@ public class LoginActivity extends AppCompatActivity implements AsyncTaskCallbac
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         mCallbackManager.onActivityResult(requestCode, resultCode, data);
         if(mLoginCallback.success) {
-            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(intent);
+
         }
         super.onActivityResult(requestCode, resultCode, data);
     }

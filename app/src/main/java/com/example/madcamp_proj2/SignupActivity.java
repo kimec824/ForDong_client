@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,8 @@ import com.google.gson.JsonParser;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.ArrayList;
 
 public class SignupActivity extends AppCompatActivity implements AsyncTaskCallback{
 
@@ -42,6 +45,8 @@ public class SignupActivity extends AppCompatActivity implements AsyncTaskCallba
         phone = findViewById(R.id.PhoneCreate);
         email = findViewById(R.id.EmailCreate);
 
+        phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        
         create = findViewById(R.id.buttonCreate);
         url_signup = "http://"+getString(R.string.ip)+":8080/login/signup";
 
@@ -49,8 +54,31 @@ public class SignupActivity extends AppCompatActivity implements AsyncTaskCallba
             @Override
             public void onClick(View v) {
                 Log.d("dfdsfsdf","dfsdfsd");
-                NetworkTask networkTask = new NetworkTask(url_signup+"?ID="+ID.getText().toString()+"&Password="+Password.getText().toString(), null, "GET",null, SignupActivity.this);
-                networkTask.execute();
+
+                if (name.getText().toString().matches("")) {
+                    Toast.makeText(SignupActivity.this, "You did not enter a name", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (ID.getText().toString().matches("")) {
+                    Toast.makeText(SignupActivity.this, "You did not enter a ID", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (Password.getText().toString().matches("")) {
+                    Toast.makeText(SignupActivity.this, "You did not enter a password", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (phone.getText().toString().matches("")) {
+                    Toast.makeText(SignupActivity.this, "You did not enter a phone number", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (email.getText().toString().matches("")) {
+                    Toast.makeText(SignupActivity.this, "You did not enter a email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                    NetworkTask networkTask = new NetworkTask(url_signup + "?ID=" + ID.getText().toString() + "&Password=" + Password.getText().toString(), null, "GET", null, SignupActivity.this);
+                    networkTask.execute();
+
             }
         });
     }
