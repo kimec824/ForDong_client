@@ -68,7 +68,7 @@ public class RequestHttpURLConnection {
             json = jsonobject.toString();
 
             OutputStream os = connection.getOutputStream();
-            os.write(json.getBytes("euc-kr"));
+            os.write(json.getBytes("UTF-8"));
             os.flush();
 
             // receive response as inputStream

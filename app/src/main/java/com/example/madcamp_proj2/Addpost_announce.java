@@ -13,9 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import static com.example.madcamp_proj2.Fragment3.boardItems;
 import static com.example.madcamp_proj2.MainActivity.userID;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import static com.example.madcamp_proj2.Fragment3.adapter;
 
 public class Addpost_announce extends AppCompatActivity implements AsyncTaskCallback {
     @Override
@@ -73,7 +76,23 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+
+                adapter.addItem(null, title_input.getText().toString(),userID,1);
+                adapter.notifyDataSetChanged();
+
+                BoardItem new_board = new BoardItem();
+                new_board.setwriter(userID);
+                new_board.settime(getTime);
+                new_board.settype(1);
+                new_board.settitle(title_input.getText().toString());
+                new_board.setcontent(content_input.getText().toString());
+
+                boardItems.add(new_board);
+
                 gotoMain(jsonObject);
+
+
             }
         });
     }
@@ -81,13 +100,16 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
 
         NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null,"POST", jsonObject,this);
         networkTask.execute();
-        finish();
+
         //Intent intent=new Intent(getApplicationContext(), MainActivity.class);
         //startActivity(intent);
     }
 
     @Override
     public void method2(String s) {
+        //글 수정 이후 바로 목록에 뜨게 해야함
+        //Listviewitem _board 이거를 새로 생성 -> adapter에 넣어주고 notify
 
+        finish();
     }
 }

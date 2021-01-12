@@ -41,7 +41,8 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
 
     private ListView listview;
     public static ListViewAdapter_forBoard adapter = new ListViewAdapter_forBoard();
-    ArrayList<BoardItem> boardItems = new ArrayList<BoardItem>();
+    public static ArrayList<BoardItem> boardItems = new ArrayList<BoardItem>();
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -148,13 +149,7 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
                     intent.putExtra("title", chosenTitle);
                     getActivity().startActivity(intent);
                 }
-                else if(boardItems.get(position).gettype()==3)
-                {
-                    Intent intent=new Intent(getActivity(), Viewpost_announce.class);
-                    String chosenTitle=boardItems.get(position).gettitle();
-                    intent.putExtra("title", chosenTitle);
-                    getActivity().startActivity(intent);
-                }
+
                 //activity에서 선택한 position에 따라서 해당하는 게시글 view activity로 넘어간다
             }
         });
