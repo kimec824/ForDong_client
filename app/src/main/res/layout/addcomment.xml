@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="match_parent">
 
     <Button
         android:id="@+id/addcomment_confirm"
-        android:layout_width="match_parent"
+        android:layout_width="105dp"
         android:layout_height="wrap_content"
-        android:text="추가" />
+        android:layout_gravity="end"
+        android:layout_marginTop="143dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/pink"
+        android:text="추가"
+        android:textColor="#322828"
+
+        app:layout_constraintBottom_toTopOf="@+id/comment_toadd"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/comment_toadd"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="290dp"
+        android:layout_height="51dp"
+        android:layout_gravity="end"
+        android:layout_marginStart="61dp"
+        android:layout_marginLeft="61dp"
+        android:layout_marginEnd="61dp"
+        android:layout_marginRight="61dp"
+        android:layout_marginBottom="308dp"
         android:ems="10"
+        android:gravity="center"
+        android:hint="댓글을 입력하세요"
         android:inputType="textPersonName"
-        android:hint="댓글을 입력하세요" />
-</LinearLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addcomment_confirm" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,12 @@
 package com.example.madcamp_proj2;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +26,7 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
         //새로운 글 객체 생성
         BoardItem newpost=new BoardItem();
         //boarditem 정보: 제목, 내용, 글쓴이, 시간, 유형
-        Button confirmbutton=(Button) findViewById(R.id.confirm_a);
+        ImageButton confirmbutton=(ImageButton) findViewById(R.id.confirm_a);
         EditText title_input=(EditText) findViewById(R.id.Addtitle_a);
         EditText content_input=(EditText) findViewById(R.id.Addcontent_a);
 

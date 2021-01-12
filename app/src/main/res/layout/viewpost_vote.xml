@@ -1,64 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:id="@+id/listview_item"
     android:layout_height="match_parent"
-    android:layout_margin="5dp"
-    android:orientation="vertical"
-    android:paddingTop="5dp">
-<!--작성자, 작성 일시, 제목, 글 내용-->
+    android:layout_margin="15dp"
+    android:weightSum="17"
+    android:orientation="vertical">
+    <!--작성자, 작성 일시, 제목, 글 내용-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="20dp"
-        android:layout_weight="1"
-        android:weightSum="3"
-        android:orientation="horizontal">
+        android:layout_height="40dp"
+        android:layout_weight="2"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:background="@drawable/border">
 
-        <TextView
-            android:id="@+id/time_v"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:ems="10"
-            android:hint="작성 일시"
-            android:inputType="time" />
-
-        <TextView
-            android:id="@+id/writer_v"
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:hint="작성자"
-            android:text="TextView" />
+            android:weightSum="2"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="#352B2B"
+                android:text="작성 일시" />
+
+            <TextView
+                android:id="@+id/time_v"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="#352B2B"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="time" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:weightSum="2"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:textColor="#352B2B"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="작성자" />
+
+            <TextView
+                android:id="@+id/writer_v"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="#352B2B"
+                android:gravity="center"/>
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/viewtitle_v"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="글 제목" />
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="11"
+        android:background="@drawable/border">
 
-    <TextView
-        android:id="@+id/viewcontent_v"
+        <TextView
+            android:id="@+id/textView10"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#352B2B"
+            android:text="투표 제목" />
+
+        <TextView
+            android:id="@+id/viewtitle_v"
+            android:layout_width="310dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:gravity="center"
+            android:textColor="#352B2B"
+            android:hint="투표 제목"
+            android:inputType="text" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="3"
-        android:ems="10"
-        android:hint="글 내용"
-        android:gravity="start|top"
-        android:inputType="textMultiLine" />
+        android:layout_height="150dp"
+        android:weightSum="12"
+        android:orientation="horizontal"
+        android:background="@drawable/border"
+        >
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textColor="#352B2B"
+            android:text="투표 내용" />
+
+        <TextView
+            android:id="@+id/viewcontent_v"
+            android:layout_width="310dp"
+            android:layout_height="match_parent"
+            android:ems="10"
+            android:gravity="center"
+            android:textSize="15dp"
+            android:textColor="#352B2B"
+            android:hint="투표 내용"
+            android:inputType="textMultiLine" />
+    </LinearLayout>
 
     <!--표(체크박스, 결과)-->
+
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="5"
-        android:weightSum="4">
+        android:layout_height="150dp"
+        android:weightSum="4"
+        android:background="@drawable/border">
 
         <TableRow
             android:layout_width="match_parent"
@@ -69,15 +143,15 @@
             <CheckBox
                 android:id="@+id/choose1"
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
 
             <TextView
                 android:id="@+id/result1"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_height="match_parent" />
+                android:layout_weight="0.5" />
         </TableRow>
 
         <TableRow
@@ -89,16 +163,17 @@
             <CheckBox
                 android:id="@+id/choose2"
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
 
             <TextView
                 android:id="@+id/result2"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_height="match_parent" />
+                android:layout_weight="0.5" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -108,16 +183,17 @@
             <CheckBox
                 android:id="@+id/choose3"
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
 
             <TextView
                 android:id="@+id/result3"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_height="match_parent" />
+                android:layout_weight="0.5" />
         </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -127,37 +203,52 @@
             <CheckBox
                 android:id="@+id/choose4"
                 android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
 
             <TextView
                 android:id="@+id/result4"
                 android:layout_width="0dp"
-                android:layout_weight="1"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_height="match_parent" />
+                android:layout_weight="0.5" />
         </TableRow>
     </TableLayout>
-<!--투표 확정 버튼, 댓글 리스트, 댓글 쓰기 버튼-->
-    <Button
-        android:id="@+id/confirm_vote"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="투표 확정" />
+        android:layout_height="60dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/confirm_vote"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="left"
+            android:layout_marginLeft="10dp"
+            android:backgroundTint="@color/pink"
+            android:text="투표 확정"
+            android:textColor="#352B2B" />
+
+        <Button
+            android:id="@+id/addcomment_v"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="160dp"
+            android:layout_gravity="right"
+            android:backgroundTint="@color/pink"
+            android:text="댓글쓰기"
+            android:textColor="#352B2B" />
+    </LinearLayout>
+    <!--투표 확정 버튼, 댓글 리스트, 댓글 쓰기 버튼-->
 
     <ListView
-    android:id="@+id/commentlist_v"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="5"/>
-
-    <Button
-        android:id="@+id/addcomment_v"
+        android:id="@+id/commentlist_v"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="댓글쓰기" />
-</FrameLayout>
+        android:layout_height="250dp"
+        android:divider="#FFFFFF"/>
+
+
+
+
+</LinearLayout>

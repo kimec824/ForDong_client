@@ -84,7 +84,7 @@ public class Viewpost_announce extends AppCompatActivity implements AsyncTaskCal
                         JSONObject getObject1 = commentArray.getJSONObject(j);
                         ListViewItem_Comment com = new ListViewItem_Comment();
 
-                        com.setTime(getObject1.getString("time"));
+                        //com.setTime(getObject1.getString("time"));
                         com.setWriter(getObject1.getString("writer"));
                         com.setDesc(getObject1.getString("content"));
 
@@ -92,10 +92,10 @@ public class Viewpost_announce extends AppCompatActivity implements AsyncTaskCal
                     }
                     adapter.clearItem();
                     for (int k = 0; k < CommentItems.size(); k++) {
-                        Bitmap sampleBitmap = BitmapFactory.decodeResource(context_main.getResources(), R.drawable.person);
+                        //Bitmap sampleBitmap = BitmapFactory.decodeResource(context_main.getResources(), R.drawable.person);
                         ListViewItem_Comment comi = CommentItems.get(k);
                         System.out.println(comi.getDesc());
-                        adapter.addItem(sampleBitmap, comi.getDesc(), comi.getWriter(), comi.getTime());
+                        adapter.addItem(comi.getDesc(), comi.getWriter());
                     }
                     listview.setAdapter(adapter);
 ////////////////////////////////////////////////////////////////////////////////////////

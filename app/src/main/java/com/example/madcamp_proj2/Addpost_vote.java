@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,7 +25,7 @@ public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback
         setContentView(R.layout.addpost_vote);
         //BoardItem newpost=new BoardItem();
 
-        Button confirmbutton=(Button) findViewById(R.id.confirm_v);
+        ImageButton confirmbutton=(ImageButton) findViewById(R.id.confirm_v);
         EditText title_input=(EditText) findViewById(R.id.Addtitle_v);
         EditText content_input=(EditText) findViewById(R.id.Addcontent_v);
         EditText candi1=(EditText) findViewById(R.id.candi1);

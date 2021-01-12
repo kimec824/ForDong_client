@@ -94,7 +94,7 @@ public class Addcomment extends AppCompatActivity implements AsyncTaskCallback {
 
         NetworkTask networkTask = new NetworkTask(url,null, "POST", jsonObject,this);
         Bitmap sampleBitmap = BitmapFactory.decodeResource(context_main.getResources(), R.drawable.person);
-        adapter.addItem(sampleBitmap, jsonObject.getString("content"), jsonObject.getString("writer"), jsonObject.getString("time"));
+        adapter.addItem(jsonObject.getString("content"), jsonObject.getString("writer"));
         //listview.setAdapter(adapter);
         adapter.notifyDataSetChanged();
         networkTask.execute();
