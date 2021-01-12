@@ -14,6 +14,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ImageDecoder;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -95,6 +96,12 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
         userEmail = findViewById(R.id.emailProfile);
         userImage = findViewById(R.id.imageProfile);
         Button editbtn = (Button) findViewById(R.id.editbtn);
+
+        GradientDrawable drawable= (GradientDrawable) getResources().getDrawable(R.drawable.background_rounding);
+        userImage.setBackground(drawable);
+        if(Build.VERSION.SDK_INT >= 21) {
+            userImage.setClipToOutline(true);
+        }
 
         gridView = (GridView) findViewById(R.id.gridViewProfile);
 
@@ -199,6 +206,7 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent1 = new Intent(ProfileActivity.this, MyphotosActivity.class);
                 intent1.putExtra("userID", userID.getText().toString());
+                intent1.putExtra("position", position);
                 startActivity(intent1);
             }
         });

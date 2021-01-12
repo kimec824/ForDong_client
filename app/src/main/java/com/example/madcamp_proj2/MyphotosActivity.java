@@ -65,6 +65,7 @@ public class MyphotosActivity extends AppCompatActivity implements AsyncTaskCall
             }
 
             recyclerView2.setAdapter(recyclerViewAdapter2);
+            recyclerView2.scrollToPosition(getIntent().getIntExtra("position", 0));
         }catch (JSONException e) {
             e.printStackTrace();
         }
