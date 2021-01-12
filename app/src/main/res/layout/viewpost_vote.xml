@@ -12,13 +12,13 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:weightSum="2"
+        android:weightSum="3"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/time_v"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="2"
             android:ems="10"
             android:hint="작성 일시"
@@ -27,7 +27,7 @@
         <TextView
             android:id="@+id/writer_v"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:hint="작성자"
             android:text="TextView" />
@@ -70,14 +70,14 @@
                 android:id="@+id/choose1"
                 android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/result1"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_gravity="center"
+                android:layout_height="match_parent" />
         </TableRow>
 
         <TableRow
@@ -90,14 +90,14 @@
                 android:id="@+id/choose2"
                 android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:layout_height="match_parent"/>
 
             <TextView
                 android:id="@+id/result2"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_gravity="center"
+                android:layout_height="match_parent" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -109,14 +109,14 @@
                 android:id="@+id/choose3"
                 android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:layout_height="match_parent"/>
 
             <TextView
                 android:id="@+id/result3"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_gravity="center"
+                android:layout_height="match_parent" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -128,14 +128,14 @@
                 android:id="@+id/choose4"
                 android:layout_width="0dp"
                 android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:text="CheckBox" />
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/result4"
                 android:layout_width="0dp"
                 android:layout_weight="1"
-                android:layout_height="wrap_content" />
+                android:layout_gravity="center"
+                android:layout_height="match_parent" />
         </TableRow>
     </TableLayout>
 <!--투표 확정 버튼, 댓글 리스트, 댓글 쓰기 버튼-->

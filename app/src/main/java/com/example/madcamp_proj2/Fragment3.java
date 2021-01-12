@@ -134,22 +134,21 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println(boardItems.get(position).gettype());
-                if(boardItems.get(position).gettype()==0)
+                if(boardItems.get(position).gettype()==1)
                 {
                     Intent intent=new Intent(getActivity(), Viewpost_announce.class);
                     String chosenTitle=boardItems.get(position).gettitle();
                     intent.putExtra("title", chosenTitle);
                     getActivity().startActivity(intent);
                 }
-                else if(boardItems.get(position).gettype()==1)
+                else if(boardItems.get(position).gettype()==2)
                 {
                     Intent intent=new Intent(getActivity(), Viewpost_vote.class);
                     String chosenTitle=boardItems.get(position).gettitle();
                     intent.putExtra("title", chosenTitle);
                     getActivity().startActivity(intent);
                 }
-                else if(boardItems.get(position).gettype()==2)
+                else if(boardItems.get(position).gettype()==3)
                 {
                     Intent intent=new Intent(getActivity(), Viewpost_announce.class);
                     String chosenTitle=boardItems.get(position).gettitle();
@@ -193,9 +192,12 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
 
                 post.settitle(getObject.getString("title"));
                 post.setwriter(getObject.getString("writer"));
-
+                post.settype(getObject.getInt("type"));
+                //if(post.gettype()!=2)
                 boardItems.add(post);
+                System.out.println(getObject.getString("title"));
             }
+            System.out.println(boardItems.size());
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -22,7 +22,7 @@ public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addpost_vote);
-        BoardItem newpost=new BoardItem();
+        //BoardItem newpost=new BoardItem();
 
         Button confirmbutton=(Button) findViewById(R.id.confirm_v);
         EditText title_input=(EditText) findViewById(R.id.Addtitle_v);
@@ -32,10 +32,10 @@ public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback
         EditText candi3=(EditText) findViewById(R.id.candi3);
         EditText candi4=(EditText) findViewById(R.id.candi4);
 
-        newpost.setcontent(content_input.getText().toString());
-        newpost.settitle(title_input.getText().toString());
-        newpost.settype(2);
-        newpost.setwriter(userID);
+        //newpost.setcontent(content_input.getText().toString());
+        //newpost.settitle(title_input.getText().toString());
+        //newpost.settype(2);
+        //newpost.setwriter(userID);
         //추가 버튼 누르면 입력된 정보들(new post 객체) 서버에 post 해야됨
         confirmbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +46,7 @@ public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback
                 Date mDate=new Date(now);
                 SimpleDateFormat simpleDate=new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
                 String getTime=simpleDate.format(mDate);
-                newpost.settime(getTime);
+                //newpost.settime(getTime);
                 //newpost를 json object로 바꿈
                 JSONObject jsonObject = new JSONObject();
                 try {
@@ -123,6 +123,7 @@ public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback
 
         NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null, jsonObject,this);
         networkTask.execute();
+        System.out.println("end of add vote");
         finish();
     }
 

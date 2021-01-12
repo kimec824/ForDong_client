@@ -14,7 +14,7 @@
     <string-array name = "LAN">
         <item>"공지"</item>
         <item>"투표"</item>
-        <item>"item3"</item>
+        <item>"정산"</item>
     </string-array>
     <string name="ip">192.249.18.250</string>
     <!-- TODO: Remove or change this placeholder text -->
