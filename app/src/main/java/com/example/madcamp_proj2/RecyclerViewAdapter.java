@@ -1,6 +1,7 @@
 package com.example.madcamp_proj2;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.provider.ContactsContract;
 import android.util.Log;
@@ -28,6 +29,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public RecyclerViewAdapter(){}
 
+    FeedItem feed;
+
 
     // onCreateViewHolder() - 아이템 뷰를 위한 뷰홀더 객체 생성하여 리턴.
     @Override
@@ -45,7 +48,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
 
-        FeedItem feed = feedItems.get(position);
+        feed= feedItems.get(position);
 
         holder.onBind(feed);
     }
@@ -95,6 +98,28 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             iconImageView = (ImageView) itemView.findViewById(R.id.imageview);
             tv_name = (TextView) itemView.findViewById(R.id.writer_name2);
             tv_context = (TextView) itemView.findViewById(R.id.context);
+
+            writerImage.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    int pos = getAdapterPosition();
+                    FeedItem fd = feedItems.get(pos);
+                    Intent tt = new Intent(context_main ,ProfileActivity.class);
+                    tt.putExtra("userID", fd.getId());
+                    context_main.startActivity(tt);
+                }
+            });
+
+            tv_writer_name.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    int pos = getAdapterPosition();
+                    FeedItem fd = feedItems.get(pos);
+                    Intent tt = new Intent(context_main ,ProfileActivity.class);
+                    tt.putExtra("userID", fd.getId());
+                    context_main.startActivity(tt);
+                }
+            });
 
         }
 
