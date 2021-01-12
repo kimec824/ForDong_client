@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:id="@+id/listview_item"
+    android:layout_height="match_parent"
+    android:layout_margin="5dp"
+    android:weightSum="15"
+    android:orientation="vertical"
+    android:paddingTop="42dp">
+    <Button
+        android:id="@+id/confirm_v"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_gravity="right"
+        android:text="추가" />
+
+    <EditText
+        android:id="@+id/Addtitle_v"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="투표 제목" />
+
+    <EditText
+        android:id="@+id/Addcontent_v"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="4"
+        android:ems="10"
+        android:hint="투표 내용"
+        android:gravity="start|top"
+        android:inputType="textMultiLine" />
+
+    <EditText
+        android:id="@+id/candi1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:hint="후보1"/>
+
+    <EditText
+        android:id="@+id/candi2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:hint="후보2" />
+
+    <EditText
+        android:id="@+id/candi3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:hint="후보3" />
+
+    <EditText
+        android:id="@+id/candi4"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:hint="후보4" />
+
+
+</LinearLayout>

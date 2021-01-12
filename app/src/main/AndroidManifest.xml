@@ -29,6 +29,11 @@
         android:theme="@style/Theme.Madcamp_proj2"
         android:usesCleartextTraffic="true">
 
+        <activity android:name=".Addpost_vote"></activity>
+        <activity android:name=".Addpost_announce"></activity>
+        <activity android:name=".Viewpost_announce"></activity>
+        <activity android:name=".Viewpost_vote"></activity>
+        <activity android:name=".Addcomment"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
