@@ -65,24 +65,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
 
-        <EditText
-            android:id="@+id/et4"
-            android:layout_width="300dp"
-            android:layout_height="50dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:backgroundTint="#856523"
-            android:hint="Address"
-            android:textColor="#000"
-            android:textColorHint="#C1C1C1"
-            android:textSize="15sp" />
-
-    </LinearLayout>
 
 </LinearLayout>
