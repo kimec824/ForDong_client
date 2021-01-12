@@ -20,14 +20,19 @@ import org.w3c.dom.Comment;
 
 import java.util.ArrayList;
 
+import static com.example.madcamp_proj2.Fragment3.adapter;
+import static com.example.madcamp_proj2.Fragment3.boardItems;
 import static com.example.madcamp_proj2.MainActivity.context_main;
+import static com.example.madcamp_proj2.MainActivity.userID;
 
 public class Viewpost_announce extends AppCompatActivity implements AsyncTaskCallback {
     String chosenTitle;
     TextView showtime, writer, title, content;
     private ListView listview;
     public static ListViewAdapter_forComment adapter = new ListViewAdapter_forComment();
-    ArrayList<ListViewItem_Comment> CommentItems = new ArrayList<ListViewItem_Comment>();
+    public static ArrayList<ListViewItem_Comment> CommentItems = new ArrayList<ListViewItem_Comment>();
+    public static int post_type = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         String url="http://"+getString(R.string.ip)+":8080/board";
@@ -42,6 +47,7 @@ public class Viewpost_announce extends AppCompatActivity implements AsyncTaskCal
          title=(TextView) findViewById(R.id.viewtitle_a);
          content=(TextView) findViewById(R.id.viewcontent_a);
          listview=(ListView) findViewById(R.id.commentlist_a);
+        listview.setAdapter(adapter);
         Button addcomment=(Button) findViewById(R.id.addcomment);
         //정보를 get해오고 싶은데 chosenTitle을 title로 가지는 정보를 가져오고싶음.
         //일단 다가져오고... 파싱하면서 고르는걸로
@@ -52,6 +58,7 @@ public class Viewpost_announce extends AppCompatActivity implements AsyncTaskCal
         Button addpostbutton=(Button) findViewById(R.id.addcomment);
         addpostbutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                post_type =1;
                 Intent intent=new Intent(getApplicationContext(),Addcomment.class);
                 intent.putExtra("titleofpost", chosenTitle);
                 startActivity(intent);

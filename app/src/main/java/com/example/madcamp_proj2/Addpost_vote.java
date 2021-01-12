@@ -16,6 +16,8 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import static com.example.madcamp_proj2.Fragment3.adapter;
+import static com.example.madcamp_proj2.Fragment3.boardItems;
 import static com.example.madcamp_proj2.MainActivity.userID;
 
 public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback {
@@ -115,6 +117,19 @@ public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
+                adapter.addItem(null, title_input.getText().toString(),userID,2);
+                adapter.notifyDataSetChanged();
+
+                BoardItem new_board = new BoardItem();
+                new_board.setwriter(userID);
+                new_board.settime(getTime);
+                new_board.settype(2);
+                new_board.settitle(title_input.getText().toString());
+                new_board.setcontent(content_input.getText().toString());
+
+                boardItems.add(new_board);
+
 
                 gotoMain(jsonObject);
             }

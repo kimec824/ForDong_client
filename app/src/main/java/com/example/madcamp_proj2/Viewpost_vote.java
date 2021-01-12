@@ -25,6 +25,7 @@ import java.util.Vector;
 
 import static com.example.madcamp_proj2.MainActivity.context_main;
 import static com.example.madcamp_proj2.MainActivity.userID;
+import static com.example.madcamp_proj2.Viewpost_announce.post_type;
 
 public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallback{
     String chosenTitle;
@@ -34,8 +35,9 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
     CheckBox check1, check2, check3, check4;
     Vector<String> pastnameList=new Vector();
     private ListView listview;
-    public static ListViewAdapter_forComment adapter = new ListViewAdapter_forComment();
-    ArrayList<ListViewItem_Comment> CommentItems = new ArrayList<ListViewItem_Comment>();
+    public static ListViewAdapter_forComment adapter1 = new ListViewAdapter_forComment();
+    public static ArrayList<ListViewItem_Comment> CommentItems1 = new ArrayList<ListViewItem_Comment>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         String url="http://"+getString(R.string.ip)+":8080/board";
@@ -58,6 +60,7 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
         res3=(TextView) findViewById(R.id.result3);
         res4=(TextView) findViewById(R.id.result4);
         listview=(ListView) findViewById(R.id.commentlist_v);
+        listview.setAdapter(adapter1);
         Button addcomment=(Button) findViewById(R.id.addcomment_v);
         //정보를 get해오고 싶은데 chosenTitle을 title로 가지는 정보를 가져오고싶음.
         //일단 다가져오고... 파싱하면서 고르는걸로
@@ -67,8 +70,10 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
         //댓글 추가 관련 코드=
         addcomment.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                post_type = 2;
                 Intent intent=new Intent(getApplicationContext(),Addcomment.class);
                 intent.putExtra("titleofpost", chosenTitle);
+
                 startActivity(intent);
             }
         });
@@ -86,18 +91,7 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
                         return;
                     }
                 }
-                ////////////////////////////////////////////////////////////////////////////////////////////////
-                String url="http://"+getString(R.string.ip)+":8080/board/result/"+chosenTitle;
-                String sUrl="";
-                String eUrl="";
-                sUrl=url.substring(0,   url.lastIndexOf("/")+1);
-                eUrl=url.substring(url.lastIndexOf("/")+1,url.length());
-                try {
-                    eUrl= URLEncoder.encode(eUrl,"EUC-KR").replace("+","%20");
-                } catch (UnsupportedEncodingException e) {
-                    e.printStackTrace();
-                }
-                url=sUrl+eUrl;
+                String url="http://"+getString(R.string.ip)+":8080/board/result";
                 int voteResult=0;
                 if(check1.isChecked())//1 선택했으면
                     voteResult=voteResult+1000;
@@ -109,24 +103,16 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
                     voteResult=voteResult+1;
                 //서버 participant ID에 userID추가, candi1~4 result update
                 JSONObject jsonObject = new JSONObject();
-                try {jsonObject.accumulate("ID",userID);} catch (JSONException e) {
+                try {
+                    jsonObject.accumulate("title",chosenTitle);
+                    jsonObject.accumulate("ID",userID);
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 try {jsonObject.accumulate("code",voteResult);} catch (JSONException e) {
                     e.printStackTrace();
                 }
-                ////////////////////Debug//////////////////////////////////////////////////////
-                try {
-                    System.out.println(jsonObject.getString("ID"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    System.out.println(jsonObject.getString("code"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                ////////////////////////////////////////////////////////////////////////////////
+
                 try {addVote(jsonObject,url);} catch (JSONException | InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -179,7 +165,7 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
                      //////////////////////////////////////////////////////////
 
 //////////////////////////////////댓글 출력 관련 코드///////////////////////////
-                    CommentItems.clear();
+                    CommentItems1.clear();
                     JSONArray commentArray = getObject.getJSONArray("comment");
                     System.out.println(commentArray.length());
                     for(int j=0;j<commentArray.length();j++){
@@ -191,16 +177,16 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
                         com.setWriter(getObject1.getString("writer"));
                         com.setDesc(getObject1.getString("content"));
 
-                        CommentItems.add(com);
+                        CommentItems1.add(com);
                     }
-                    adapter.clearItem();
-                    for (int k = 0; k < CommentItems.size(); k++) {
+                    adapter1.clearItem();
+                    for (int k = 0; k < CommentItems1.size(); k++) {
                         //Bitmap sampleBitmap = BitmapFactory.decodeResource(context_main.getResources(), R.drawable.person);
-                        ListViewItem_Comment comi = CommentItems.get(k);
+                        ListViewItem_Comment comi = CommentItems1.get(k);
                         System.out.println(comi.getDesc());
-                        adapter.addItem(comi.getDesc(), comi.getWriter());
+                        adapter1.addItem(comi.getDesc(), comi.getWriter());
                     }
-                    listview.setAdapter(adapter);
+                    listview.setAdapter(adapter1);
                 }
             }
         } catch (JSONException e) {
