@@ -9,7 +9,7 @@
     <ListView
         android:id="@+id/boardlist"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="649dp"
         android:paddingTop="42dp">
 
     </ListView>
@@ -18,7 +18,11 @@
         android:id="@+id/addpost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:text="글 쓰기" />
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="right|bottom"
+        android:backgroundTint="@color/pink"
+        android:textColor="@color/black"
+        android:text="글 추가" />
 
 </FrameLayout>

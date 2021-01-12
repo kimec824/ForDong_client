@@ -29,11 +29,24 @@
         android:theme="@style/Theme.Madcamp_proj2"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".Addpost_vote"></activity>
-        <activity android:name=".Addpost_announce"></activity>
-        <activity android:name=".Viewpost_announce"></activity>
-        <activity android:name=".Viewpost_vote"></activity>
-        <activity android:name=".Addcomment"/>
+        <activity android:name=".MyphotosActivity"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"></activity>
+        <activity android:name=".ProfileActivity"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"/>
+
+
+        <activity android:name=".Addpost_vote"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"></activity>
+        <activity android:name=".Addpost_announce"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"></activity>
+        <activity android:name=".Viewpost_announce"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"></activity>
+        <activity android:name=".Viewpost_vote"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"></activity>
+        <activity android:name=".Addcomment"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"/>
+        <activity android:name=".SignupActivity"
+            android:theme="@style/Theme.Madcamp_proj2.NoActionBar"/>
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"

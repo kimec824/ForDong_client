@@ -83,6 +83,7 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
     private ArrayList<String> permissions = new ArrayList<>();
     private final static int ALL_PERMISSIONS_RESULT = 107;
     private final static int IMAGE_RESULT = 200;
+    private final static int PROFILE_RESULT = 300;
 
     Bitmap mBitmap;
 
@@ -167,6 +168,9 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
                                         jsonObject.accumulate("name", userName.getText().toString());
                                         jsonObject.accumulate("phone", userPhone.getText().toString());
                                         jsonObject.accumulate("email", userEmail.getText().toString());
+                                        userID.setText(name);
+                                        userPhone.setText(number);
+                                        userEmail.setText(mail);
                                         jsonObject.accumulate("changename", name);
                                         jsonObject.accumulate("changephone", number);
                                         jsonObject.accumulate("changeemail", mail);

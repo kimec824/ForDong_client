@@ -32,11 +32,11 @@
 
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="0"
             android:orientation="vertical"
-            android:paddingLeft="15dp">
+            android:paddingLeft="10dp">
 
             <TextView
                 android:id="@+id/textView1"
@@ -60,44 +60,43 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/hidden"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/dialbtn"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:background="@drawable/button_dial_custom"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:text="Dial"
+                android:textColor="#595252"
+                android:textSize="9dp"
+                app:backgroundTint="#CBF8F8F3"
+                app:backgroundTintMode="multiply" />
+
+            <Button
+                android:id="@+id/mypagebtn"
+                android:layout_width="60dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="20dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/button_page_custom"
+                android:gravity="center"
+                android:text="Page"
+                android:textColor="#595252"
+                android:textSize="9dp"
+                app:backgroundTint="#CBF8F8F3"
+                app:backgroundTintMode="multiply" />
+
+        </LinearLayout>
 
 
-    <LinearLayout
-        android:id="@+id/hidden"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:paddingLeft="210dp"
-        android:paddingTop="5dp"
-        android:paddingRight="30dp"
-        android:paddingBottom="5dp"
-        android:visibility="visible">
-
-        <Button
-            android:id="@+id/dialbtn"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:background="@drawable/button_dial_custom"
-            android:gravity="center"
-            android:text="Dial"
-            android:textColor="#595252"
-            android:textSize="12dp"
-            app:backgroundTint="#CBF8F8F3"
-            app:backgroundTintMode="multiply" />
-
-        <Button
-            android:id="@+id/mypagebtn"
-            android:layout_width="70dp"
-            android:layout_height="35dp"
-            android:background="@drawable/button_page_custom"
-            android:textColor="#595252"
-            android:layout_marginLeft="10dp"
-            android:textSize="12dp"
-            android:gravity="center"
-            app:backgroundTint="#CBF8F8F3"
-            app:backgroundTintMode="multiply"
-            android:text="Page" />
     </LinearLayout>
 
 

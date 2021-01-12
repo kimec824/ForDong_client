@@ -8,6 +8,8 @@ public class ListViewItem_Board {
     //private String descStr=null;
     private String writerStr=null;
 
+
+
     public void setIcon(Bitmap icon) {
         iconDrawable = icon ;
     }

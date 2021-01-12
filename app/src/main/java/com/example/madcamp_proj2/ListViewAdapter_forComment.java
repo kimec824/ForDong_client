@@ -38,18 +38,18 @@ public class ListViewAdapter_forComment extends BaseAdapter {
         }
 
         // 화면에 표시될 View(Layout이 inflate된)으로부터 위젯에 대한 참조 획득
-        ImageView iconImageView = (ImageView) convertView.findViewById(R.id.commentimageview) ;
+        //ImageView iconImageView = (ImageView) convertView.findViewById(R.id.commentimageview) ;
         TextView writerTextView = (TextView) convertView.findViewById(R.id.commentwritername) ;
         TextView contentTextView = (TextView) convertView.findViewById(R.id.commentcontent) ;
-        TextView timeTextView = (TextView) convertView.findViewById(R.id.commenttime) ;
+        //TextView timeTextView = (TextView) convertView.findViewById(R.id.commenttime) ;
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
         ListViewItem_Comment listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        iconImageView.setImageBitmap(listViewItem.getIcon());
+        //iconImageView.setImageBitmap(listViewItem.getIcon());
         writerTextView.setText(listViewItem.getWriter());
         contentTextView.setText(listViewItem.getDesc());
-        timeTextView.setText(listViewItem.getTime());
+        //timeTextView.setText(listViewItem.getTime());
 
         return convertView;
     }
@@ -67,13 +67,13 @@ public class ListViewAdapter_forComment extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Bitmap icon, String content, String writer, String time) {
+    public void addItem(String content, String writer) {
         ListViewItem_Comment item = new ListViewItem_Comment();
 
-        item.setIcon(icon);
+        //item.setIcon(icon);
         item.setDesc(content);
         item.setWriter(writer);
-        item.setTime(time);
+        //item.setTime(time);
         listViewItemList.add(item);
 
 

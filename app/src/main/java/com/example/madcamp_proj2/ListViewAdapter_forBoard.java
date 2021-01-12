@@ -9,7 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
+import static com.example.madcamp_proj2.Fragment1.contactItems;
 
 public class ListViewAdapter_forBoard extends BaseAdapter {
     // Adapter에 추가된 데이터를 저장하기 위한 ArrayList
@@ -42,10 +45,21 @@ public class ListViewAdapter_forBoard extends BaseAdapter {
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title_board) ;
         TextView writerTextView = (TextView) convertView.findViewById(R.id.writername);
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
+
         ListViewItem_Board listViewItem = listViewItemList.get(position);
 
         // 아이템 내 각 위젯에 데이터 반영
-        iconImageView.setImageBitmap(listViewItem.getIcon());
+        //여기서 glide 로 사진 가져와야함.
+        // 그 해당 유저의 photo 의 값을 와야함.
+        // contactItem writer==id
+
+        for( int i = 0 ; i< contactItems.size() ; i++){
+            if(listViewItem.getWriter().equals(contactItems.get(i).getID())){
+                String path_url = "http://"+ iconImageView.getContext().getString(R.string.ip)+":8080/photos/uploads/" + contactItems.get(i).getPhoto();
+                Glide.with(iconImageView.getContext()).load(path_url).into(iconImageView);
+            }
+        }
+        //iconImageView.setImageBitmap(listViewItem.getIcon());
         titleTextView.setText(listViewItem.getTitle());
         writerTextView.setText(listViewItem.getWriter());
 
