@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
-    public ArrayList<FeedItem> feedItems = new ArrayList<FeedItem>();
+    public static ArrayList<FeedItem> feedItems = new ArrayList<FeedItem>();
     public static RecyclerView recyclerView;
     public static RecyclerViewAdapter recyclerViewAdapter;
     public static GridView gridView;
