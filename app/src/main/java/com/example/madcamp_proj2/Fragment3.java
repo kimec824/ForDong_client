@@ -160,7 +160,7 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
         });
 
 
-        NetworkTask networkTask = new NetworkTask(url, null, null, this);
+        NetworkTask networkTask = new NetworkTask(url, null, "get",null, this);
         networkTask.execute();
         /*
         String method = "POST";

@@ -121,7 +121,7 @@ public class Addpost_vote extends AppCompatActivity implements AsyncTaskCallback
     }
     public void gotoMain (JSONObject jsonObject){
 
-        NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null, jsonObject,this);
+        NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null,"POST", jsonObject,this);
         networkTask.execute();
         System.out.println("end of add vote");
         finish();
