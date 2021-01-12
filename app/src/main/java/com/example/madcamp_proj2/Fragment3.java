@@ -193,7 +193,7 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
                 post.settitle(getObject.getString("title"));
                 post.setwriter(getObject.getString("writer"));
                 post.settype(getObject.getInt("type"));
-                //if(post.gettype()!=2)
+
                 boardItems.add(post);
                 System.out.println(getObject.getString("title"));
             }
@@ -205,7 +205,7 @@ public class Fragment3 extends Fragment implements AsyncTaskCallback {
         for (int i = 0; i < boardItems.size(); i++) {
             Bitmap sampleBitmap = BitmapFactory.decodeResource(context_main.getResources(), R.drawable.person);
             BoardItem bi = boardItems.get(i);
-            adapter.addItem(sampleBitmap, bi.gettitle(), bi.getwriter());
+            adapter.addItem(sampleBitmap, bi.gettitle(), bi.getwriter(), bi.gettype());
         }
         listview.setAdapter(adapter);
     }

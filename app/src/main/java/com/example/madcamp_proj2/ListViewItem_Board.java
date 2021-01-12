@@ -7,6 +7,7 @@ public class ListViewItem_Board {
     private String titleStr=null;
     //private String descStr=null;
     private String writerStr=null;
+    private String type=null;
 
 
 
@@ -35,4 +36,6 @@ public class ListViewItem_Board {
     public String getWriter() {
         return this.writerStr ;
     }
+    public String getType(){return this.type;}
+    public void setType(String type){this.type=type;}
 }

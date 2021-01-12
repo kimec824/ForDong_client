@@ -10,7 +10,9 @@
         android:id="@+id/boardlist"
         android:layout_width="match_parent"
         android:layout_height="649dp"
-        android:paddingTop="42dp">
+        android:paddingTop="42dp"
+        android:divider="#221E1E"
+        android:dividerHeight="3px">
 
     </ListView>
 

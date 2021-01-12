@@ -10,7 +10,7 @@
     <!--작성자, 작성 일시, 제목, 글 내용-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_weight="2"
         android:weightSum="2"
         android:orientation="horizontal"
@@ -245,7 +245,7 @@
     <ListView
         android:id="@+id/commentlist_v"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="230dp"
         android:divider="#FFFFFF"/>
 
 

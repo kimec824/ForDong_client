@@ -44,6 +44,7 @@ public class ListViewAdapter_forBoard extends BaseAdapter {
         ImageView iconImageView = (ImageView) convertView.findViewById(R.id.imageView1_board) ;
         TextView titleTextView = (TextView) convertView.findViewById(R.id.title_board) ;
         TextView writerTextView = (TextView) convertView.findViewById(R.id.writername);
+        TextView posttype=(TextView) convertView.findViewById(R.id.post_type);
         // Data Set(listViewItemList)에서 position에 위치한 데이터 참조 획득
 
         ListViewItem_Board listViewItem = listViewItemList.get(position);
@@ -62,6 +63,7 @@ public class ListViewAdapter_forBoard extends BaseAdapter {
         //iconImageView.setImageBitmap(listViewItem.getIcon());
         titleTextView.setText(listViewItem.getTitle());
         writerTextView.setText(listViewItem.getWriter());
+        posttype.setText(listViewItem.getType());
 
         return convertView;
     }
@@ -79,14 +81,17 @@ public class ListViewAdapter_forBoard extends BaseAdapter {
     }
 
     // 아이템 데이터 추가를 위한 함수. 개발자가 원하는대로 작성 가능.
-    public void addItem(Bitmap icon, String title, String writer) {
+    public void addItem(Bitmap icon, String title, String writer, int type) {
         ListViewItem_Board item = new ListViewItem_Board();
 
         item.setIcon(icon);
         item.setTitle(title);
         //item.setDesc(desc);
         item.setWriter(writer);
-
+        if(type==1)//공지
+            item.setType("공지");
+        else if(type==2)//투표
+            item.setType("투표");
         listViewItemList.add(item);
     }
 
