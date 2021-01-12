@@ -3,7 +3,9 @@ package com.example.madcamp_proj2;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -19,7 +21,12 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,6 +57,10 @@ import retrofit2.Retrofit;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission_group.CAMERA;
+import static com.example.madcamp_proj2.Fragment1.adapter;
+import static com.example.madcamp_proj2.Fragment1.listview;
+import static com.example.madcamp_proj2.MainActivity.context_main;
+import static com.example.madcamp_proj2.MainActivity.userID;
 
 public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallback{
 
@@ -59,6 +70,8 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
     TextView userEmail;
     ImageView userImage;
     ApiService apiService;
+    private GridView gridView;
+    ProfileGridAdapter profileGridAdapter;
 
     private ArrayList<String> permissionsToRequest;
     private ArrayList<String> permissionsRejected = new ArrayList<>();
@@ -78,21 +91,112 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
         userPhone = findViewById(R.id.phoneProfile);
         userEmail = findViewById(R.id.emailProfile);
         userImage = findViewById(R.id.imageProfile);
+        Button editbtn = (Button) findViewById(R.id.editbtn);
+
+        gridView = (GridView) findViewById(R.id.gridViewProfile);
 
         Intent intent = getIntent();
         userID.setText(intent.getStringExtra("userID"));
 
         String url = "http://"+getString(R.string.ip)+":8080/contacts/"+userID.getText().toString();
 
-        NetworkTask networkTask = new NetworkTask(url, null, null, this);
+        NetworkTask networkTask = new NetworkTask(url, null, "GET",null, this);
         networkTask.execute();
 
-        userImage.setOnClickListener(new View.OnClickListener() {
+        if(userID.getText().toString().equals(MainActivity.userID)) {
+            userImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    askPermissions();
+                    initRetrofitClient();
+                    startActivityForResult(getPickImageChooserIntent(), IMAGE_RESULT);
+                }
+            });
+
+            //edit button click
+            editbtn.setOnClickListener(new Button.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println(MainActivity.userID);
+
+                    final LinearLayout linear = (LinearLayout) View.inflate(ProfileActivity.this, R.layout.contactdialog, null);
+                    AlertDialog.Builder adb = new AlertDialog.Builder(ProfileActivity.this, R.style.MyDialogTheme);
+
+                    EditText edt = linear.findViewById(R.id.et1);
+                    adb.setView(linear);
+                    edt.setText(userName.getText().toString());
+
+                    EditText edt2 = linear.findViewById(R.id.et2);
+                    adb.setView(linear);
+                    edt2.setText(userPhone.getText().toString());
+
+                    EditText edt3 = linear.findViewById(R.id.et3);
+                    adb.setView(linear);
+                    edt3.setText(userEmail.getText().toString());
+
+                    //ok는 수정했다는것.
+                    adb.setTitle("Edit Contact")
+                            .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+
+                                    String name = edt.getText().toString();
+                                    String number = edt2.getText().toString();
+                                    String mail = edt3.getText().toString();
+                                    //
+                                    //DATABASE에 넘겨주는 작업이 필요함.(PUT)
+                                    //
+                                    String url = "http://" + getString(R.string.ip) + ":8080/contacts";
+                                    String method = "PUT";
+
+                                    //build jsonObject
+                                    JSONObject jsonObject = new JSONObject();
+                                    try {
+                                        jsonObject.accumulate("ID", userID.getText().toString());
+                                        jsonObject.accumulate("name", userName.getText().toString());
+                                        jsonObject.accumulate("phone", userPhone.getText().toString());
+                                        jsonObject.accumulate("email", userEmail.getText().toString());
+                                        jsonObject.accumulate("changename", name);
+                                        jsonObject.accumulate("changephone", number);
+                                        jsonObject.accumulate("changeemail", mail);
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    System.out.println("checkpoint");
+                                    NetworkTask networkTask = new NetworkTask(url, null, method, jsonObject, ProfileActivity.this);
+                                    networkTask.execute();
+                                }
+                            })
+                            .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                }
+                            });
+
+                    AlertDialog finalDialog = adb.create();
+                    finalDialog.setOnShowListener(new DialogInterface.OnShowListener() {
+                        @Override
+                        public void onShow(DialogInterface arg0) {
+                            finalDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(Color.parseColor("#6E6557"));
+                            finalDialog.getButton(AlertDialog.BUTTON_NEUTRAL).setTextColor(Color.parseColor("#6E6557"));
+                        }
+                    });
+                    finalDialog.show();
+                }
+            });
+
+        }
+        else{
+            editbtn.setVisibility(View.GONE);
+        }
+
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View v) {
-                askPermissions();
-                initRetrofitClient();
-                startActivityForResult(getPickImageChooserIntent(), IMAGE_RESULT);
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent1 = new Intent(ProfileActivity.this, MyphotosActivity.class);
+                intent1.putExtra("userID", userID.getText().toString());
+                startActivity(intent1);
             }
         });
     }
@@ -306,7 +410,8 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
     public void method1(String s) {
         try{
             //Json parsing
-            JSONObject jsonObject = new JSONObject(s);
+            JSONArray jsonArray = new JSONArray(s);
+            JSONObject jsonObject = jsonArray.getJSONObject(0);
 
             JSONArray contactsArray = jsonObject.getJSONArray("Contact");
             JSONObject contact = contactsArray.getJSONObject(0);
@@ -315,10 +420,31 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
             userPhone.setText(contact.getString("phone"));
             userEmail.setText(contact.getString("email"));
 
-            String path_url = "http://"+getString(R.string.ip)+":8080/photos/uploads/" + contact.getString("photo");
-            Glide.with(this).load(path_url).into(userImage);
+            if(contact.getString("photo").equals("null"))
+                userImage.setImageBitmap(BitmapFactory.decodeResource( context_main.getResources(), R.drawable.person));
+            else {
+                String path_url = "http://"+getString(R.string.ip)+":8080/photos/uploads/" + contact.getString("photo");
+                Glide.with(this).load(path_url).into(userImage);
+            }
+
+            jsonObject = jsonArray.getJSONObject(1);
+            JSONArray photosArray = jsonObject.getJSONArray("Photo");
+            ArrayList arrayList = new ArrayList();
+
+            for(int i=0 ; i<photosArray.length(); i++){
+                JSONObject photo = photosArray.getJSONObject(i);
+                arrayList.add(photo.getString("file_path"));
+            }
+
+            profileGridAdapter = new ProfileGridAdapter(arrayList);
+            gridView.setAdapter(profileGridAdapter);
+
         }catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+    @Override
+    public void method3(String s) {
+        System.out.println(s);
     }
 }

@@ -1,47 +1,24 @@
 package com.example.madcamp_proj2;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.provider.MediaStore;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.w3c.dom.Text;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.OkHttpClient;
-import retrofit2.Retrofit;
-
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-import static android.Manifest.permission_group.CAMERA;
-import static com.example.madcamp_proj2.Fragment1.adapter;
-import static com.example.madcamp_proj2.Fragment1.contactItems;
-import static com.example.madcamp_proj2.Fragment1.listview;
-import static com.example.madcamp_proj2.MainActivity.context_main;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,9 +27,9 @@ import static com.example.madcamp_proj2.MainActivity.context_main;
  */
 public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
-    public static ArrayList<GridViewItem> feedItems = new ArrayList<GridViewItem>();
-    public static GridView gridview;
-    public static GridViewAdapter gridViewAdapter;
+    public static ArrayList<FeedItem> feedItems = new ArrayList<FeedItem>();
+    public static RecyclerView recyclerView;
+    public static RecyclerViewAdapter recyclerViewAdapter;
 
     public Fragment2() {
         // Required empty public constructor
@@ -78,10 +55,13 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
         View view = inflater.inflate(R.layout.fragment2, container, false);
 
         //GridView adapter
-        gridViewAdapter = new GridViewAdapter();
-        gridview = (GridView) view.findViewById(R.id.gridView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recycler1);
+        recyclerViewAdapter = new RecyclerViewAdapter();
 
-        gridViewAdapter = add_item_to_gridviewadapter(gridViewAdapter);
+        recyclerViewAdapter = add_item_to_recyclerViewAdapter(recyclerViewAdapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(linearLayoutManager);
 
         Button button1 = (Button) view.findViewById(R.id.button);
 
@@ -98,7 +78,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
         return view;
     }
 
-    public GridViewAdapter add_item_to_gridviewadapter(GridViewAdapter myadapter) {
+    public RecyclerViewAdapter add_item_to_recyclerViewAdapter(RecyclerViewAdapter myadapter) {
 
         //여기서 item 을 넣어줘야함
         //그말은 여기서 get api 를 이용해서 server의 이미지들을 가져와야한다는 뜻.
@@ -107,11 +87,12 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
 
         String url = "http://"+getString(R.string.ip)+":8080/photos";
+        String method = "POST";
         //String json = getJsonString();
         //System.out.println(json);
         //AsyncTask를 통해 HTTPURLConnection 수행.
 
-        NetworkTask networkTask = new NetworkTask(url, null, null, this);
+        NetworkTask networkTask = new NetworkTask(url, null, method ,null, this );
         networkTask.execute();
 
 
@@ -139,19 +120,30 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
             for(int i=0; i<photosArray.length(); i++)
             {
                 JSONObject photoObject = photosArray.getJSONObject(i);
-                GridViewItem feed = new GridViewItem();
+                FeedItem feed = new FeedItem();
 
-                feed.setName(photoObject.getString("name"));
+                feed.setId(photoObject.getString("name"));
                 feed.setImagePath(photoObject.getString("file_path"));
                 feed.setPhotoContext(photoObject.getString("context"));
                 //System.out.println(movieObject.getString("name")+movieObject.getString("phoneNumber")+movieObject.getString("email"));
 
-                String path_url = "http://"+getString(R.string.ip)+":8080/photos/uploads/" + feed.getImagePath();
-                ImageLoadTask task = new ImageLoadTask(path_url , feed);
-                task.execute();
+                feedItems.add(feed);
+                //String path_url = "http://192.249.18.232:8080/photos/uploads/" + feed.getImagePath();
+                //ImageLoadTask task = new ImageLoadTask(path_url , feed);
+                //task.execute();
+
             }
         }catch (JSONException e) {
             e.printStackTrace();
         }
+
+        System.out.println("CHECK FeedItems : " + feedItems.size());
+        for(int i = 0 ; i<feedItems.size(); i++){
+            FeedItem ci = feedItems.get(i);
+            recyclerViewAdapter.addItem(ci.getIcon(), ci.getId(), ci.getPhotoConText(), ci.getImagePath());
+        }
+        //gridViewAdapter.notifyDataSetChanged();
+        recyclerView.setAdapter(recyclerViewAdapter);
+
     }
 }

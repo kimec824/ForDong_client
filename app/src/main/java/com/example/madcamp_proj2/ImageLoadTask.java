@@ -3,25 +3,23 @@ package com.example.madcamp_proj2;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.widget.ImageView;
 
 import java.net.URL;
 import java.util.HashMap;
 
 import static com.example.madcamp_proj2.Fragment2.feedItems;
-import static com.example.madcamp_proj2.Fragment2.gridViewAdapter;
-import static com.example.madcamp_proj2.Fragment2.gridview;
-import static com.example.madcamp_proj2.MainActivity.context_main;
+import static com.example.madcamp_proj2.Fragment2.recyclerViewAdapter;
+//import static com.example.madcamp_proj2.Fragment2.gridview;
 
 public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
 
     private String urlStr;
-    private GridViewItem feed;
+    private FeedItem feed;
     //private ImageView imageView;
 
     private static HashMap<String, Bitmap> bitmapHash = new HashMap<String, Bitmap>();
 
-    public ImageLoadTask(String urlStr, GridViewItem feed){
+    public ImageLoadTask(String urlStr, FeedItem feed){
         this.urlStr = urlStr;
         this.feed = feed;
         //this.imageView = imageView;
@@ -69,10 +67,10 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap> {
         feedItems.add(feed);
 
         System.out.println("CHECK FeedItems : " + feedItems.size());
-        GridViewItem ci = feedItems.get(feedItems.size()-1);
-        gridViewAdapter.addItem(ci.getIcon(), ci.getName(), ci.getPhotoConText(), ci.getImagePath());
-        gridViewAdapter.notifyDataSetChanged();;
-        gridview.setAdapter(gridViewAdapter);
+        FeedItem ci = feedItems.get(feedItems.size()-1);
+        recyclerViewAdapter.addItem(ci.getIcon(), ci.getId(), ci.getPhotoConText(), ci.getImagePath());
+        recyclerViewAdapter.notifyDataSetChanged();;
+        //gridview.setAdapter(recyclerViewAdapter);
     }
 
 }

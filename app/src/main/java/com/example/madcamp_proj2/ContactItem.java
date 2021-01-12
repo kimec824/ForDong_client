@@ -1,14 +1,38 @@
 package com.example.madcamp_proj2;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 
 public class ContactItem implements Serializable {
+    private Bitmap user_profile;
     private String user_phNumber, user_name;
     private String photo_id, person_id;
     private String mail, address;
     private int id;
+    private String ID;
+    private String photo;
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
 
     public ContactItem(){}
+
+    public Bitmap getUser_profile(){return user_profile;}
+    public void setUser_profile(Bitmap user_profile){this.user_profile = user_profile;}
 
     public String getPhoto_id(){return photo_id;}
     public String getPerson_id(){return person_id;}

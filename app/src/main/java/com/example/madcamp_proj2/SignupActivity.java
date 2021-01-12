@@ -49,7 +49,7 @@ public class SignupActivity extends AppCompatActivity implements AsyncTaskCallba
             @Override
             public void onClick(View v) {
                 Log.d("dfdsfsdf","dfsdfsd");
-                NetworkTask networkTask = new NetworkTask(url_signup+"?ID="+ID.getText().toString()+"&Password="+Password.getText().toString(), null, null, SignupActivity.this);
+                NetworkTask networkTask = new NetworkTask(url_signup+"?ID="+ID.getText().toString()+"&Password="+Password.getText().toString(), null, "GET",null, SignupActivity.this);
                 networkTask.execute();
             }
         });
@@ -68,7 +68,8 @@ public class SignupActivity extends AppCompatActivity implements AsyncTaskCallba
                 jsonObject.accumulate("ID", ID.getText().toString());
                 jsonObject.accumulate("phone", phone.getText().toString());
                 jsonObject.accumulate("email", email.getText().toString());
-                NetworkTask networkTask = new NetworkTask(url_signup, null, jsonObject,  SignupActivity.this);
+                jsonObject.accumulate("photo","null");
+                NetworkTask networkTask = new NetworkTask(url_signup, null, "POST", jsonObject,  SignupActivity.this);
                 networkTask.execute();
             }catch (JSONException e){
                 Toast.makeText(SignupActivity.this,"error", Toast.LENGTH_SHORT);
