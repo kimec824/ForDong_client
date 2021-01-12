@@ -54,6 +54,7 @@ import retrofit2.Retrofit;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static android.Manifest.permission_group.CAMERA;
+import static com.example.madcamp_proj2.Fragment2.feedItems;
 import static com.example.madcamp_proj2.Fragment2.gridView;
 import static com.example.madcamp_proj2.Fragment2.groups;
 import static com.example.madcamp_proj2.Fragment2.photoGridAdapter;
@@ -357,10 +358,10 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
             System.out.println("ihii" + this.content);
             Log.e("whatisthis",this.content);
             RequestBody id = RequestBody.create(MediaType.parse("text/plain"), userID);
-            RequestBody content = RequestBody.create(MediaType.parse("text/plain"), this.content);
+            RequestBody context = RequestBody.create(MediaType.parse("text/plain"), this.content);
             RequestBody groupname = RequestBody.create(MediaType.parse("text/plain"), this.group_name);
 
-            Call<ResponseBody> req = apiService.postImage(body, id, content, groupname);
+            Call<ResponseBody> req = apiService.postImage(body, id, context, groupname);
             req.enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -371,6 +372,13 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                         image_path = strarray[6].substring(0,strarray[6].length()-1);
                         System.out.println("responsees : "+ image_path);
                         groups.remove(groups.size()-1);
+                        FeedItem new_feed = new FeedItem();
+
+                        new_feed.setId(userID);
+                        new_feed.setImagePath(image_path);
+                        new_feed.setPhoto_group(group_name);
+                        new_feed.setPhotoContext(content);
+                        feedItems.add(new_feed);
 
                         if(spinner_position == check){
 
@@ -380,14 +388,12 @@ public class ImageActivity extends AppCompatActivity implements View.OnClickList
                             photoGridAdapter.notifyDataSetChanged();
                             //이건되는지 안되는지 확인해야함.
                             gridView.setAdapter(photoGridAdapter);
-                            
+
                             textView.setText("Uploaded Successfully!");
                             textView.setTextColor(Color.BLUE);
-                            finish();
                         }
-
+                        finish();
                     }
-
 
                     Toast.makeText(getApplicationContext(), response.code() + " ", Toast.LENGTH_SHORT).show();
                 }

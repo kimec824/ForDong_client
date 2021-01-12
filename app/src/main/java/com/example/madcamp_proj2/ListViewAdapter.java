@@ -139,6 +139,15 @@ public class ListViewAdapter extends BaseAdapter implements AsyncTaskCallback{
         return contactItemList.get(position) ;
     }
 
+    //image_path 변경
+    public void setItem(String userId, String change_path){
+        for(int i=0; i<contactItemList.size(); i++){
+            if(contactItemList.get(i).getID().equals(userId)){
+                contactItemList.get(i).setPhoto(change_path);
+            }
+        }
+    }
+
     //view 내 데이터 설정.
     public void setViews(int position, View convertView){
 

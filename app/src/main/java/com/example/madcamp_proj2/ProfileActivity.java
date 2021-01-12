@@ -405,13 +405,16 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
                     for(int i =0 ; i< strarray.length ; i++){
                         System.out.println("ggggi : "+ strarray[i]);
                     }
-                    //image_path = strarray[6].substring(0,strarray[6].length()-1);
-                    //System.out.println("responsees : "+ image_path);
+                    image_path = strarray[6].substring(0,strarray[6].length()-1);
+                    System.out.println("responsees : "+ image_path);
 
                     for(int i= 0 ; i<contactItems.size() ; i++){
 
-                        if(contactItems.get(i).getID().equals(userID) ){
+                        if(contactItems.get(i).getID().equals(MainActivity.userID) ){
                             contactItems.get(i).setPhoto(image_path);
+
+                            adapter.setItem(MainActivity.userID, image_path);
+                            adapter.notifyDataSetChanged();
                             break;
                         }
                     }
