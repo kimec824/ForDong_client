@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -95,7 +96,7 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
         userPhone = findViewById(R.id.phoneProfile);
         userEmail = findViewById(R.id.emailProfile);
         userImage = findViewById(R.id.imageProfile);
-        Button editbtn = (Button) findViewById(R.id.editbtn);
+        ImageButton editbtn = (ImageButton) findViewById(R.id.editbtn);
 
         GradientDrawable drawable= (GradientDrawable) getResources().getDrawable(R.drawable.background_rounding);
         userImage.setBackground(drawable);
