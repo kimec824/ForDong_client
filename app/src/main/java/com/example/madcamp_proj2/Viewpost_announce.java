@@ -45,7 +45,7 @@ public class Viewpost_announce extends AppCompatActivity implements AsyncTaskCal
         Button addcomment=(Button) findViewById(R.id.addcomment);
         //정보를 get해오고 싶은데 chosenTitle을 title로 가지는 정보를 가져오고싶음.
         //일단 다가져오고... 파싱하면서 고르는걸로
-        NetworkTask networkTask = new NetworkTask(url,null,null,this);
+        NetworkTask networkTask = new NetworkTask(url,null,"get", null,this);
         networkTask.execute();
 
         //댓글 추가

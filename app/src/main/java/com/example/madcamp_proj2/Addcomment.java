@@ -92,7 +92,7 @@ public class Addcomment extends AppCompatActivity implements AsyncTaskCallback {
     }
     public void gotoPost (JSONObject jsonObject, String url) throws JSONException {
 
-        NetworkTask networkTask = new NetworkTask(url,null, jsonObject,this);
+        NetworkTask networkTask = new NetworkTask(url,null, "POST", jsonObject,this);
         Bitmap sampleBitmap = BitmapFactory.decodeResource(context_main.getResources(), R.drawable.person);
         adapter.addItem(sampleBitmap, jsonObject.getString("content"), jsonObject.getString("writer"), jsonObject.getString("time"));
         //listview.setAdapter(adapter);

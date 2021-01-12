@@ -77,7 +77,7 @@ public class Addpost_announce extends AppCompatActivity implements AsyncTaskCall
     }
     public void gotoMain (JSONObject jsonObject){
 
-        NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null, jsonObject,this);
+        NetworkTask networkTask = new NetworkTask("http://"+getString(R.string.ip)+":8080/board",null,"POST", jsonObject,this);
         networkTask.execute();
         finish();
         //Intent intent=new Intent(getApplicationContext(), MainActivity.class);

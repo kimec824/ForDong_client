@@ -57,10 +57,11 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
         res2=(TextView) findViewById(R.id.result2);
         res3=(TextView) findViewById(R.id.result3);
         res4=(TextView) findViewById(R.id.result4);
+        listview=(ListView) findViewById(R.id.commentlist_v);
         Button addcomment=(Button) findViewById(R.id.addcomment_v);
         //정보를 get해오고 싶은데 chosenTitle을 title로 가지는 정보를 가져오고싶음.
         //일단 다가져오고... 파싱하면서 고르는걸로
-        NetworkTask networkTask = new NetworkTask(url,null,null,this);
+        NetworkTask networkTask = new NetworkTask(url,null,"get",null,this);
         networkTask.execute();
         System.out.println(pastnameList.size());
         //댓글 추가 관련 코드=
@@ -164,15 +165,15 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
                         temp=temp+result.getInt("code");
                     /////////////////////이전 투표수 계산//////////////////////////////
                     }
+                    System.out.println(temp);//16404
+                    respast1=temp/1000;//16
+                    temp=temp%1000;//404
                     System.out.println(temp);
-                    respast1=temp/1000;
-                    temp=temp%1000;
+                    respast2=temp/100;//4
+                    temp=temp%100;//04
                     System.out.println(temp);
-                    respast2=temp/100;
-                    temp=temp%100;
-                    System.out.println(temp);
-                    respast3=temp/10;
-                    temp=temp%10;
+                    respast3=temp/10;//0
+                    temp=temp%10;//4
                     System.out.println(temp);
                     respast4=temp;
                      //////////////////////////////////////////////////////////
@@ -210,7 +211,7 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
 
     public void addVote (JSONObject jsonObject, String url) throws JSONException, InterruptedException {
 
-        NetworkTask networkTask = new NetworkTask(url,null, jsonObject,this);
+        NetworkTask networkTask = new NetworkTask(url,null, "POST",jsonObject,this);
         networkTask.execute();
         //Thread.sleep(1000);
         //finish();
@@ -220,12 +221,12 @@ public class Viewpost_vote extends AppCompatActivity implements AsyncTaskCallbac
     public void method2(String s) {
         //새로운 투표 결과 보여주기
         if(check1.isChecked()){res1.setText(Integer.toString(respast1+1));}
-        else {res2.setText(Integer.toString(respast1));}
+        else {res1.setText(Integer.toString(respast1));}
         if(check2.isChecked()){res2.setText(Integer.toString(respast2+1));}
         else {res2.setText(Integer.toString(respast2));}
-        if(check1.isChecked()){res3.setText(Integer.toString(respast3+1));}
+        if(check3.isChecked()){res3.setText(Integer.toString(respast3+1));}
         else {res3.setText(Integer.toString(respast3));}
-        if(check1.isChecked()){res4.setText(Integer.toString(respast4+1));}
+        if(check4.isChecked()){res4.setText(Integer.toString(respast4+1));}
         else {res4.setText(Integer.toString(respast4));}
 
     }
