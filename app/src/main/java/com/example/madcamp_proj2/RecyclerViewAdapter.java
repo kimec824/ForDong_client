@@ -3,6 +3,7 @@ package com.example.madcamp_proj2;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.provider.ContactsContract;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -104,13 +105,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             //iconImageView.setImageBitmap(gridViewItem.getIcon());
 
             for(int i= 0 ; i<contactItems.size() ; i++){
+                Log.d(feed.getId(), contactItems.get(i).getID());
                 if(feed.getId().equals(contactItems.get(i).getID()) ){
                     String profile_url = url+contactItems.get(i).getPhoto();
-                    Glide.with(recyclerView).load(profile_url).into(this.writerImage);
+                    Glide.with(tv_context.getContext()).load(profile_url).into(this.writerImage);
                     break;
                 }
             }
-            Glide.with(recyclerView).load(url+feed.getImagePath()).into(this.iconImageView);
+            Glide.with(tv_context.getContext()).load(url+feed.getImagePath()).into(this.iconImageView);
             tv_writer_name.setText(feed.getId());
             tv_name.setText(feed.getId());
 

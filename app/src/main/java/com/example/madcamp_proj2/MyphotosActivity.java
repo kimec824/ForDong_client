@@ -60,7 +60,7 @@ public class MyphotosActivity extends AppCompatActivity implements AsyncTaskCall
                 feed.setPhotoContext(photoObject.getString("context"));
                 feed.setPhoto_group(photoObject.getString("photo_group"));
 
-                recyclerViewAdapter2.addItem(null, feed.getId(), feed.getPhotoConText(), feed.getImagePath());
+                recyclerViewAdapter2.addItem(feed.getId(), feed.getPhotoConText(), feed.getImagePath(), null);
                 feedItems.add(feed);
             }
 
