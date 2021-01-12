@@ -36,6 +36,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
     public static RecyclerViewAdapter recyclerViewAdapter;
     public static GridView gridView;
     public static PhotoGridAdapter photoGridAdapter;
+    public static ImageButton button2;
 
     public static ArrayList<String> groups; //갤러리 폴더 잡는거.
 
@@ -79,7 +80,7 @@ public class Fragment2 extends Fragment implements AsyncTaskCallback{
 
 
         ImageButton button1 = (ImageButton) view.findViewById(R.id.uploadbutton);
-        ImageButton button2 = (ImageButton) view.findViewById(R.id.backbutton);
+        button2 = (ImageButton) view.findViewById(R.id.backbutton);
 
 
         button1.setOnClickListener(new Button.OnClickListener() {

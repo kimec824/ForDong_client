@@ -168,9 +168,23 @@ public class ProfileActivity extends AppCompatActivity implements AsyncTaskCallb
                                         jsonObject.accumulate("name", userName.getText().toString());
                                         jsonObject.accumulate("phone", userPhone.getText().toString());
                                         jsonObject.accumulate("email", userEmail.getText().toString());
-                                        userID.setText(name);
+                                        userName.setText(name);
                                         userPhone.setText(number);
                                         userEmail.setText(mail);
+
+                                        for(int i=0 ; i <adapter.contactItemList.size() ; i++) {
+
+                                            ContactItem item = adapter.contactItemList.get(i);
+
+                                            if (userID.getText().toString().equals(item.getID())) {
+                                                item.setUser_name(name);
+                                                item.setMail(mail);
+                                                item.setUser_phNumber(number);
+                                            }
+                                        }
+
+                                        adapter.notifyDataSetChanged();
+
                                         jsonObject.accumulate("changename", name);
                                         jsonObject.accumulate("changephone", number);
                                         jsonObject.accumulate("changeemail", mail);

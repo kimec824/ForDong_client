@@ -23,6 +23,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import static com.example.madcamp_proj2.Fragment2.button2;
+import static com.example.madcamp_proj2.Fragment2.gridView;
+import static com.example.madcamp_proj2.Fragment2.recyclerView;
+
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout;
@@ -30,6 +34,18 @@ public class MainActivity extends AppCompatActivity {
     public static Context context_main;
     FloatingActionButton profileButton;
     public static String userID;
+    ViewPagerAdapter viewPagerAdapter;
+
+    @Override
+    public void onBackPressed() {
+        if(viewPager.getCurrentItem() == 1 &&  recyclerView != null && recyclerView.getVisibility() == View.VISIBLE){
+            recyclerView.setVisibility(View.GONE);
+            gridView.setVisibility(View.VISIBLE);
+            button2.setVisibility(View.GONE);
+        }
+        else
+            super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setSelectedTabIndicatorHeight(0);
         profileButton = findViewById(R.id.profileButton);
 
-        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(viewPagerAdapter);
 
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
